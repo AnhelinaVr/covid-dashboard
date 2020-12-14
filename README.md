@@ -12,26 +12,7 @@ Covid-19 Dashboard group task.
 - _eslint-config-airbnb_ (run `npn run lint:fix` in your terminal)
 - _normalize.css_ (write `import 'normalize.css';` in your script file)
 
-## Project structure
-
-.
-|
-├── src
-│ ├── js
-│ │ ├── script.js (includes imports, events etc.)
-│ │ └── ...
-│ ├── styles
-│ │ ├── \_base.scss
-│ │ ├── \_components.scss
-│ │ ├── \_layout.scss
-│ │ └── main.scss
-│ └── index.html
-├── .eslintrc
-├── .gitignore
-├── package-lock.json
-├── package.json
-├── webpack.config.js
-└── readme.md
+## [Project structure](https://prnt.sc/w2f01r)
 
 ### How to include SASS files into your project?
 
