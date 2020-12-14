@@ -10,3 +10,4 @@ Covid-19 Dashboard group task.
 - _SASS compiler_
 - _webpack-dev-server_ (run `npm run start` in your terminal)
 - _eslint-config-airbnb_ (run `npn run lint:fix` in your terminal)
+- _normalize.css_ (write `import 'normalize.css';` in your script file)
