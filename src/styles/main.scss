@@ -1,0 +1,73 @@
+//Main: it should ONLY contain the imports for the above files.
+@import '_base.scss';
+@import '_components.scss';
+@import '_layout.scss';
+
+
+
+body {
+    background-color: #cccccc;
+    color: $color_ligth;
+}
+
+.module-table {
+  padding: 10px;
+  width: 480px;
+  height: 210px;
+  overflow: auto;
+  background-color: $color_primary;
+
+  &__table {
+    margin: 0 auto;
+    width: 400px;
+    background-color:$color_third;
+    border: 1px solid $color_ligth;
+
+    &-thead{
+      background-color: $color_third;
+
+      &__figure{
+        margin:5px auto;
+
+        &__icon{
+          max-width: 40px;
+        }
+
+      }
+    }
+
+
+    &-tbody{
+        background-color: $color_secondary;
+        display: block;
+        height: 160px;
+        overflow: auto;
+
+        &__tr{
+            display: flex;
+            justify-content: space-around;
+
+            &__td-location{
+                width: 80px;
+            }
+
+            &__td-infected{
+                width: 80px;
+            }
+
+            &__td-recovered{
+                width: 80px;
+            }
+
+            &__td-death{
+                width: 80px;
+            }
+        }
+
+        &__tr:hover{
+            background-color: $color_third;
+        }
+    }
+  }
+}
+
