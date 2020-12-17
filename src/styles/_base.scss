@@ -15,3 +15,26 @@ $color_ligth:#FFFFFF;
   }
   line-height: 130%;
 }
+
+@mixin button {
+    margin: 5px 20px;
+    cursor: pointer;
+    transition: 0.3s;
+    background-color: transparent;
+}
+
+@mixin button-hover {
+    transition: 0.3s;
+    transform: scale(0.9);
+}
+
+@mixin button-active {
+    transition: 0.3s;
+    transform: scale(0.9);
+}
+
+@mixin button__img {
+    width: 20px;
+    height: 20px;
+    page-break-after: 5px;
+}

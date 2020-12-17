@@ -13,8 +13,7 @@ body {
 .module-table {
   padding: 10px;
   width: 480px;
-  height: 210px;
-  overflow: auto;
+  height: 260px;
   background-color: $color_primary;
 
   &__table {
@@ -34,33 +33,54 @@ body {
         }
 
       }
+
+      &__tabs-container{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+      }
+
+      &__names-columns{
+          display: flex;
+          text-align: center;
+          font-weight: bold;
+
+          &__td-location, &__td-infected, &__td-recovered, &__td-deaths{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            width: 25%;
+          }
+
+          img{
+              width: 25px;
+              height: 25px;
+              background-color: $color_ligth;
+          }
+      }
     }
 
 
     &-tbody{
         background-color: $color_secondary;
         display: block;
-        height: 160px;
+        height: 150px;
         overflow: auto;
 
         &__tr{
             display: flex;
-            justify-content: space-around;
+            text-align: right;
+            cursor: pointer;
 
-            &__td-location{
-                width: 80px;
-            }
-
-            &__td-infected{
-                width: 80px;
-            }
-
-            &__td-recovered{
-                width: 80px;
-            }
-
-            &__td-death{
-                width: 80px;
+            &__td-location, &__td-infected, &__td-recovered, &__td-deaths{
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              text-align: center;
+              width: 25%;
+              padding: 2px;
             }
         }
 
@@ -68,6 +88,27 @@ body {
             background-color: $color_third;
         }
     }
+  }
+
+  &__text-categories{
+      width: 100px;
+      text-align: center;
+  }
+
+  &__button {
+      @include button;
+  }
+
+  &__button {
+      @include button;
+
+    &__img{
+      @include button__img;
+    }
+  }
+
+  &__button:active {
+    @include button-active;
   }
 }
 
