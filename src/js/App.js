@@ -2,10 +2,17 @@ import Table from './Table';
 
 export default class App {
   constructor() {
-    this.country = '';
+    this.arrayCountries = null;
+    this.moduleTable = new Table('.module-table', 'module-table__table', this.setCountry.bind(this));
+    this.moduleTable.addTheadandTbody();
+    this.moduleTable.showCountries('Total');
+  }
+  /* в свою таблицу передаю функцию которая вызывается когда страна меняется */
+
+  setCountry(country) {
+    this.country = country;
+    console.log(country, 'app');
   }
 }
 
-const moduleTable = new Table('table', '.module-table', 'module-table__table');
-moduleTable.addTheadandTbody();
-moduleTable.showCountries('Total');
+const app = new App();

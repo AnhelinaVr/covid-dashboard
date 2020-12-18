@@ -1,7 +1,7 @@
 export default class Table {
-  constructor(type, parentSelector, className) {
+  constructor(parentSelector, className, funcchangeCountry) {
     const parent = document.querySelector(parentSelector);
-    this.el = document.createElement(type);
+    this.el = document.createElement('table');
     this.el.classList.add(className);
     parent.appendChild(this.el);
     this.globalInfo = null;
@@ -9,9 +9,10 @@ export default class Table {
     this.categories = ['Total', 'New', 'Total / 100k', 'New / 100k'];
     this.indexCategory = 0;
     this.searchTerm = '';
+    this.functargetCountry = funcchangeCountry;
   }
 
-  createSeacrhFieldInModuleTable() {
+  /* createSeacrhFieldInModuleTable() {
     const THEAD = this.el.querySelector('.module-table__table-thead');
     const ROW_INPUT = document.createElement('tr');
     THEAD.appendChild(ROW_INPUT);
@@ -21,9 +22,35 @@ export default class Table {
       this.searchTerm = e.target.value;
       this.showCountries(this.categories[this.indexCategory]);
     });
+  } */
+
+  createSeacrhFieldAndTabsContainerInModuleTable() {
+    const THEAD = this.el.querySelector('.module-table__table-thead');
+    const ROW_INPUT = document.createElement('tr');
+    ROW_INPUT.classList.add('module-table__table-thead__search-tabs-container');
+    THEAD.appendChild(ROW_INPUT);
+    ROW_INPUT.innerHTML = `<button class="module-table__button" id="module-table__button__reset">
+                             <img class="module-table__button__img" src="/src/assets/icons/refresh.png" alt="Refresh">
+                           </button>
+                           <input type="text" id="search" placeholder="Search for a Country">
+                           <div class = "module-table__table-thead__search-tabs-container__tab">
+                             <button class="module-table__button" id="module-table__button__prev">
+                               <img class="module-table__button__img" src="/src/assets/icons/left-arrow.png" alt="Prev">
+                             </button>
+                             <div class="module-table__text-categories">Total</div>
+                             <button class="module-table__button" id="module-table__button__next">
+                               <img class="module-table__button__img" src="/src/assets/icons/right-arrow.png" alt="Next">
+                             </button>
+                           </div>`;
+    const INPUT = document.getElementById('search');
+    INPUT.addEventListener('input', (e) => {
+      this.searchTerm = e.target.value;
+      this.showCountries(this.categories[this.indexCategory]);
+    });
+    this.addEventListenerForButton();
   }
 
-  createTabsContainerInModuleTable() {
+  /* createTabsContainerInModuleTable() {
     const THEAD = this.el.querySelector('.module-table__table-thead');
     const ROW_TABS_CONTAINER = document.createElement('tr');
     ROW_TABS_CONTAINER.classList.add('module-table__table-thead__tabs-container');
@@ -38,54 +65,53 @@ export default class Table {
 
     this.addEventListenerForButton();
   }
-
-  //Завтра доделаю
-  /* createRowWithTargetInfo(location, Infected, recovered, deaths) {
+ */
+  createRowWithGlobalInfo() {
     const THEAD = this.el.querySelector('.module-table__table-thead');
+    if (THEAD.querySelector('.module-table__table-thead__target-info')) {
+      const GLOBAL_INGO = THEAD.querySelector('.module-table__table-thead__target-info');
+      GLOBAL_INGO.remove();
+    }
     const ROW = document.createElement('tr');
     ROW.classList.add('module-table__table-thead__target-info');
-    ROW.innerHTML = `<td class="module-table__table-thead__target-info__td-location">
-                       <img src="/src/assets/icons/placeholder.png" alt="">Global
-                     </td>
-                     <td class="module-table__table-thead__target-info__td-infected">
-                       <img src="/src/assets/icons/coronavirus.png" alt="">Infected
-                     </td>
-                     <td class="module-table__table-thead__target-info__td-recovered">
-                       <img src="/src/assets/icons/heartbeat.png" alt="">Recovered
-                     </td>
-                     <td class="module-table__table-thead__target-info__td-deaths">
-                       <img src="/src/assets/icons/skull.png" alt="">Deaths
-                     </td>`;
+    ROW.innerHTML = `<td class="module-table__table-thead__target-info__td-location">Global(total)</td>
+                     <td class="module-table__table-thead__target-info__td-infected">${this.globalInfo.TotalConfirmed}</td>
+                     <td class="module-table__table-thead__target-info__td-recovered">${this.globalInfo.TotalRecovered}</td>
+                     <td class="module-table__table-thead__target-info__td-deaths">${this.globalInfo.TotalDeaths}</td>`;
     THEAD.appendChild(ROW);
-  } */
+  }
 
   createRowWithNamesColumns() {
     const THEAD = this.el.querySelector('.module-table__table-thead');
     const ROW = document.createElement('tr');
     ROW.classList.add('module-table__table-thead__names-columns');
     ROW.innerHTML = `<td class="module-table__table-thead__names-columns__td-location">
-                       <img src="/src/assets/icons/placeholder.png" alt="">Locaction
+                       Locaction<img src="/src/assets/icons/placeholder.png" alt="Location">
                      </td>
                      <td class="module-table__table-thead__names-columns__td-infected">
-                       <img src="/src/assets/icons/coronavirus.png" alt="">Infected
+                       Infected<img src="/src/assets/icons/coronavirus.png" alt="Infected">
                      </td>
                      <td class="module-table__table-thead__names-columns__td-recovered">
-                       <img src="/src/assets/icons/heartbeat.png" alt="">Recovered
+                       Recovered<img src="/src/assets/icons/heartbeat.png" alt="Recovered">
                      </td>
                      <td class="module-table__table-thead__names-columns__td-deaths">
-                       <img src="/src/assets/icons/skull.png" alt="">Deaths
+                       Deaths<img src="/src/assets/icons/skull.png" alt="Deaths">
                      </td>`;
     THEAD.appendChild(ROW);
   }
 
   addEventListenerForCountry() {
     const COUNTRIES = document.querySelectorAll('.module-table__table-tbody__tr');
+    const INPUT = document.getElementById('search');
     COUNTRIES.forEach((country) => {
       country.addEventListener('click', () => {
         const LOCATION = country.querySelector('.module-table__table-tbody__tr__td-location').textContent;
         let DATA_COUNTRY = null;
         DATA_COUNTRY = this.finalCountries.find((obj) => LOCATION === obj.Country);
-        console.log(DATA_COUNTRY);
+        INPUT.value = DATA_COUNTRY.Country;
+        this.searchTerm = INPUT.value;
+        this.showCountries(this.categories[this.indexCategory]);
+        this.functargetCountry(DATA_COUNTRY);
         return DATA_COUNTRY;
       });
     });
@@ -103,14 +129,25 @@ export default class Table {
           }
           NAME_CATEGORIES.textContent = `${this.categories[this.indexCategory]}`;
           this.showCountries(this.categories[this.indexCategory]);
-        } else {
+        } else if (element.id === 'module-table__button__next') {
           this.indexCategory += 1;
           if (this.indexCategory > 3) {
             this.indexCategory = 0;
           }
           NAME_CATEGORIES.textContent = `${this.categories[this.indexCategory]}`;
           this.showCountries(this.categories[this.indexCategory]);
+        } else if (element.id === 'module-table__button__reset') {
+          const INPUT = document.getElementById('search');
+          INPUT.value = '';
+          this.indexCategory += 0;
+          this.searchTerm = '';
+          NAME_CATEGORIES.textContent = `${this.categories[this.indexCategory]}`;
+          this.showCountries(this.categories[this.indexCategory]);
         }
+        /* this.indexCategory += 0;
+          this.searchTerm = '';
+          NAME_CATEGORIES.textContent = `${this.categories[this.indexCategory]}`;
+          this.showCountries(this.categories[this.indexCategory]); */
       });
     });
   }
@@ -122,9 +159,11 @@ export default class Table {
     TBODY.classList.add('module-table__table-tbody');
     this.el.appendChild(THEAD);
     this.el.appendChild(TBODY);
-    this.createSeacrhFieldInModuleTable();
-    this.createTabsContainerInModuleTable();
+    this.createSeacrhFieldAndTabsContainerInModuleTable();
+    /* this.createSeacrhFieldInModuleTable();
+    this.createTabsContainerInModuleTable(); */
     this.createRowWithNamesColumns();
+    /* this.createRowWithGlobalInfo(); */
   }
 
   async fetchCountries() {
@@ -164,6 +203,8 @@ export default class Table {
 
     // getting the data
     await this.fetchCountries();
+
+    this.createRowWithGlobalInfo();
 
     // creating structure
     this.finalCountries.filter((country) => country.Country.toLowerCase()
@@ -213,5 +254,6 @@ export default class Table {
         tdDeath.innerText = death;
       });
     this.addEventListenerForCountry();
+    console.log(this.globalInfo);
   }
 }

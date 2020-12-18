@@ -34,13 +34,19 @@ body {
 
       }
 
-      &__tabs-container{
+      &__search-tabs-container{
           display: flex;
           justify-content: center;
           align-items: center;
+
+          &__tab{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
       }
 
-      &__names-columns{
+      &__names-columns, &__target-info {
           display: flex;
           text-align: center;
           font-weight: bold;
@@ -57,6 +63,9 @@ body {
           img{
               width: 25px;
               height: 25px;
+              padding: 5px;
+              border-radius: 50%;
+              border:3px solid $color_primary;
               background-color: $color_ligth;
           }
       }
@@ -66,7 +75,7 @@ body {
     &-tbody{
         background-color: $color_secondary;
         display: block;
-        height: 150px;
+        height: 120px;
         overflow: auto;
 
         &__tr{
