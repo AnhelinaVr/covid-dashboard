@@ -5,13 +5,17 @@ import 'normalize.css';
 
 const searchInput = document.getElementById('search');
 const results = document.getElementById('results');
+const newCases = document.getElementById('NewConfirmed');
+const totalCases = document.getElementById('TotalConfirmed');
 
 let searchTerm = '';
-let countries;
+let countriesList;
 let flag;
 
 const fetchCountries = async () => {
-  countries = await fetch('https://api.covid19api.com/summary').then((res) => res.json());
+  countriesList = await fetch(
+    'https://api.covid19api.com/summary',
+  ).then((res) => res.json());
 };
 const fetchFlag = async (CountryCode) => {
   const link = `https://restcountries.eu/rest/v2/alpha/${CountryCode}?fields=name;flag`;
@@ -33,30 +37,24 @@ const showFlag = async (CountryCode) => {
   li.prepend(countryFlag);
 };
 
-const showCountries = async () => {
+const showCountries = async (param) => {
   results.innerHTML = '';
+  console.log(param);
 
   // getting the data
   await fetchCountries();
   // creating structure
+
   const ul = document.createElement('ul');
   ul.classList.add('countries');
-  countries.Countries
+  console.log(countriesList);
+  countriesList.Countries
     .filter((country) => country.Country.toLowerCase().includes(searchTerm.toLowerCase()))
-    // .sort(country.Country)
-    .sort((a, b) => {
-      if (a.TotalConfirmed > b.TotalConfirmed) {
-        return -1;
-      }
-      if (a.TotalConfirmed < b.TotalConfirmed) {
-        return 1;
-      }
-      // a должно быть равным b
-      return 0;
-    })
+    .sort((a, b) => a.TotalConfirmed - b.TotalConfirmed)
+    .reverse()
     .forEach((country) => {
+      console.log(country);
       const li = document.createElement('li');
-      //   const countryFlag = document.createElement('img');
       const countryName = document.createElement('h3');
       const countryInfo = document.createElement('div');
       const countryPopulation = document.createElement('h2');
@@ -65,11 +63,6 @@ const showCountries = async () => {
       li.classList.add('country-item');
       li.id = country.CountryCode;
       countryInfo.classList.add('country-item__info');
-
-      //   showFlag(country.CountryCode);
-      //   console.log(showFlag(country.CountryCode));
-      //   countryFlag.src = showFlag(country.CountryCode);
-      //   countryFlag.classList.add('country-item__flag');
 
       countryName.innerText = country.Country;
       countryName.classList.add('country-item__name');
@@ -83,9 +76,6 @@ const showCountries = async () => {
       countryInfo.appendChild(countryPopulation);
       countryInfo.appendChild(countryPopulationText);
 
-      //   li.appendChild(countryFlag);
-      //   console.log(showFlag(country.CountryCode));
-      //   li.appendChild(showFlag(country.CountryCode));
       li.appendChild(countryName);
       li.appendChild(countryInfo);
       ul.appendChild(li);
@@ -94,9 +84,18 @@ const showCountries = async () => {
   results.appendChild(ul);
 };
 
-showCountries();
+showCountries('TotalConfirmed');
 
 searchInput.addEventListener('input', (e) => {
   searchTerm = e.target.value;
   showCountries();
+});
+
+newCases.addEventListener('click', () => {
+  showCountries(newCases.id);
+  console.log();
+});
+
+totalCases.addEventListener('click', () => {
+  showCountries(totalCases.id);
 });
