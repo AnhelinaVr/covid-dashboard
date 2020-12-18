@@ -6,19 +6,26 @@
 
 
 body {
-    background-color: #cccccc;
-    color: $color_ligth;
+  background-color: #cccccc;
+  color: $color_ligth;
+}
+
+.main{
+  background-color: #5e5e5e;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .module-table {
-  padding: 10px;
-  width: 480px;
-  height: 260px;
+  min-width: 50%;
+  height: 300px;
   background-color: $color_primary;
 
   &__table {
-    margin: 0 auto;
-    width: 400px;
+    margin: 10px auto;
+    width: 80%;
     background-color:$color_third;
     border: 1px solid $color_ligth;
 
@@ -31,7 +38,10 @@ body {
         &__icon{
           max-width: 40px;
         }
+      }
 
+      &__search{
+          max-width: 140px;
       }
 
       &__search-tabs-container{
@@ -119,5 +129,23 @@ body {
   &__button:active {
     @include button-active;
   }
+}
+
+.module-list{
+  min-width: 50%;
+  height: 300px;
+  background-color: $color_secondary;
+}
+
+.module-map{
+  min-width: 50%;
+  height: 300px;
+  background-color: $color_third;
+}
+
+.module-graph{
+  min-width: 50%;
+  height: 300px;
+  background-color: $color_ligth;
 }
 

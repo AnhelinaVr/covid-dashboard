@@ -32,6 +32,7 @@ $color_ligth:#FFFFFF;
 @mixin button-active {
     transition: 0.3s;
     transform: scale(0.9);
+    border: 0px;
 }
 
 @mixin button__img {

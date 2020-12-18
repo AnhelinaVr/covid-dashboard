@@ -1,5 +1,5 @@
 export default class Table {
-  constructor(parentSelector, className, funcchangeCountry) {
+  constructor(parentSelector, className, funcCountryChange) {
     const parent = document.querySelector(parentSelector);
     this.el = document.createElement('table');
     this.el.classList.add(className);
@@ -9,7 +9,8 @@ export default class Table {
     this.categories = ['Total', 'New', 'Total / 100k', 'New / 100k'];
     this.indexCategory = 0;
     this.searchTerm = '';
-    this.functargetCountry = funcchangeCountry;
+    this.countryTarget = funcCountryChange;
+    console.log(funcCountryChange + " funcCountryChange");
   }
 
   /* createSeacrhFieldInModuleTable() {
@@ -32,7 +33,7 @@ export default class Table {
     ROW_INPUT.innerHTML = `<button class="module-table__button" id="module-table__button__reset">
                              <img class="module-table__button__img" src="/src/assets/icons/refresh.png" alt="Refresh">
                            </button>
-                           <input type="text" id="search" placeholder="Search for a Country">
+                           <input type="text" class="module-table__table-thead__search" id="module-table__table-search" placeholder="Search for a Country">
                            <div class = "module-table__table-thead__search-tabs-container__tab">
                              <button class="module-table__button" id="module-table__button__prev">
                                <img class="module-table__button__img" src="/src/assets/icons/left-arrow.png" alt="Prev">
@@ -42,7 +43,7 @@ export default class Table {
                                <img class="module-table__button__img" src="/src/assets/icons/right-arrow.png" alt="Next">
                              </button>
                            </div>`;
-    const INPUT = document.getElementById('search');
+    const INPUT = document.getElementById('module-table__table-search');
     INPUT.addEventListener('input', (e) => {
       this.searchTerm = e.target.value;
       this.showCountries(this.categories[this.indexCategory]);
@@ -55,12 +56,13 @@ export default class Table {
     const ROW_TABS_CONTAINER = document.createElement('tr');
     ROW_TABS_CONTAINER.classList.add('module-table__table-thead__tabs-container');
     THEAD.appendChild(ROW_TABS_CONTAINER);
-    ROW_TABS_CONTAINER.innerHTML = `<button class="module-table__button" id="module-table__button__prev">
-                                          <img class="module-table__button__img" src="/src/assets/icons/left-arrow.png" alt="Prev">
+    ROW_TABS_CONTAINER.innerHTML = `<button class=
+    "module-table__button" id="module-table__button__prev">
+          <img class="module-table__button__img" src="/src/assets/icons/left-arrow.png" alt="Prev">
                                     </button>
                                     <div class="module-table__text-categories">Total</div>
-                                    <button class="module-table__button" id="module-table__button__next">
-                                      <img class="module-table__button__img" src="/src/assets/icons/right-arrow.png" alt="Next">
+       <button class="module-table__button" id="module-table__button__next">
+      <img class="module-table__button__img" src="/src/assets/icons/right-arrow.png" alt="Next">
                                     </button>`;
 
     this.addEventListenerForButton();
@@ -102,7 +104,7 @@ export default class Table {
 
   addEventListenerForCountry() {
     const COUNTRIES = document.querySelectorAll('.module-table__table-tbody__tr');
-    const INPUT = document.getElementById('search');
+    const INPUT = document.getElementById('module-table__table-search');
     COUNTRIES.forEach((country) => {
       country.addEventListener('click', () => {
         const LOCATION = country.querySelector('.module-table__table-tbody__tr__td-location').textContent;
@@ -111,8 +113,7 @@ export default class Table {
         INPUT.value = DATA_COUNTRY.Country;
         this.searchTerm = INPUT.value;
         this.showCountries(this.categories[this.indexCategory]);
-        this.functargetCountry(DATA_COUNTRY);
-        return DATA_COUNTRY;
+        this.countryTarget(DATA_COUNTRY);
       });
     });
   }
@@ -137,7 +138,7 @@ export default class Table {
           NAME_CATEGORIES.textContent = `${this.categories[this.indexCategory]}`;
           this.showCountries(this.categories[this.indexCategory]);
         } else if (element.id === 'module-table__button__reset') {
-          const INPUT = document.getElementById('search');
+          const INPUT = document.getElementById('module-table__table-search');
           INPUT.value = '';
           this.indexCategory += 0;
           this.searchTerm = '';
