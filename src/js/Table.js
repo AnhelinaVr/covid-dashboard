@@ -1,3 +1,5 @@
+import getCountriesInfo from './getCountriesInfo';
+
 export default class Table {
   constructor(parentSelector, className, funcCountryChange) {
     const parent = document.querySelector(parentSelector);
@@ -10,7 +12,6 @@ export default class Table {
     this.indexCategory = 0;
     this.searchTerm = '';
     this.countryTarget = funcCountryChange;
-    console.log(funcCountryChange + " funcCountryChange");
   }
 
   /* createSeacrhFieldInModuleTable() {
@@ -167,7 +168,7 @@ export default class Table {
     /* this.createRowWithGlobalInfo(); */
   }
 
-  async fetchCountries() {
+  /* async fetchCountries() {
     const DATA_BY_COUNTRIES_COVID = await fetch('https://api.covid19api.com/summary').then((result) => result.json());
     const DATA_BY_COUNTRIES_OTHER = await fetch('https://restcountries.eu/rest/v2/all').then((result) => result.json());
     this.globalInfo = DATA_BY_COUNTRIES_COVID.Global;
@@ -192,7 +193,7 @@ export default class Table {
     });
     this.sortDataCountries();
     console.log(this.finalCountries);
-  }
+  } */
 
   sortDataCountries() {
     this.finalCountries = this.finalCountries.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed);
@@ -203,12 +204,15 @@ export default class Table {
     tbody.innerHTML = '';
 
     // getting the data
-    await this.fetchCountries();
+    const data = await getCountriesInfo();
+    this.finalCountries = data.countriesInfo;
+    this.globalInfo = data.globalInfo;
+    console.log(this.finalCountries);
 
     this.createRowWithGlobalInfo();
 
     // creating structure
-    this.finalCountries.filter((country) => country.Country.toLowerCase()
+    this.finalCountries.filter((country) => country.country.toLowerCase()
       .includes(this.searchTerm.toLowerCase()))
       .forEach((country) => {
         const ROW = document.createElement('tr');
@@ -229,7 +233,7 @@ export default class Table {
         let death = null;
         const POPULATION_100K = 100000;
         if (param === 'Total') {
-          location = country.Country;
+          location = country.country;
           confirmed = country.TotalConfirmed;
           recovered = country.TotalRecovered;
           death = country.TotalDeaths;
