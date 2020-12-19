@@ -15,6 +15,19 @@
  *    const general = data.globalInfo;          // массив тотал инфа
  *   -------------------------------------------
  * 
+ * 
+ * CountryCode: "AF"
+ * NewConfirmed: 243
+ * NewDeaths: 5
+ * NewRecovered: 35
+ * TotalConfirmed: 49621
+ * TotalDeaths: 2030
+ * TotalRecovered: 38540
+ * country: "Afghanistan"
+ * flag: "https://restcountries.eu/data/afg.svg"
+ * latlng: [33, 65]
+ * population: 27657145
+ * 
  */
 
 export default async function getCountriesInfo() {

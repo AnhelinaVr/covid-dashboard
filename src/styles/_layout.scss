@@ -2,9 +2,10 @@
  such as the container and any grid systems. */
 
 .map {
-    width: 90vw;
-    height: 90vh;
+    width: 90%;
+    height: 90%;
     margin: 0 auto;
+    color: $color_primary;
     img {
         width: 20px;
         height: 20px;

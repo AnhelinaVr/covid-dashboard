@@ -19,8 +19,8 @@ function renderPopup(data) {
       `);
 }
 
-class CovidMap {
-    constructor(mapContainer, legend) {
+export default class CovidMap {
+    constructor(mapContainer, legend, funcCountryChange) {
         this.mapContainer = mapContainer;
         this.map = this.initMap();
         this.markers = [];
@@ -28,6 +28,7 @@ class CovidMap {
         this.legend = legend;
         this.map.controls[window.google.maps.ControlPosition.RIGHT_BOTTOM]
             .push(this.legend);
+        this.countryTarget = funcCountryChange;
     }
 
     initMap() {
@@ -46,9 +47,9 @@ class CovidMap {
     createLegend() {
         this.legend.innerHTML = '<h3>Legend</h3>';
         const div = document.createElement('div');
-        div.innerHTML = `<img src="../../assets/circleRed.png"> - > 10% 
-        <br>       <img src="../../assets/circleOrange.png"> - > 1% <br>   
-        <img src="../../assets/circleYellow.png"> - < 1%`;
+        div.innerHTML = `<img src="/src/assets/circleRed.png"> - > 10% 
+        <br>       <img src="/src/assets/circleOrange.png"> - > 1% <br>   
+        <img src="/src/assets/circleYellow.png"> - < 1%`;
         this.legend.appendChild(div);
     }
 
@@ -57,18 +58,11 @@ class CovidMap {
         const data = await getCountriesInfo()
         const countries = data.countriesInfo;
         const general = data.globalInfo;
-        console.log(countries);
-
-        for (let i = 0; i < countries.length - 1; i += 1) {
-            general.TotalConfirmed += countries[i].TotalConfirmed;
-            general.TotalDeaths += countries[i].TotalDeaths;
-            general.TotalRecovered += countries[i].TotalRecovered;
-        }
         this.createLegend();
 
         countries.forEach((country) => {
             const icon = {
-                url: '../../assets/circleYellow.png', // url
+                url: '/src/assets/circleYellow.png', // url
                 scaledSize: new window.google.maps.Size(20, 20), // scaled size
             };
             let percent;
@@ -77,35 +71,34 @@ class CovidMap {
             switch (tabName) {
                 case 'totalCases':
                     percent = getPercentage(country.TotalConfirmed, general.TotalConfirmed);
-
                     tabInfo = country.TotalConfirmed;
-                    if (percent >= 1 && percent < 10) icon.url = '../../assets/circleOrange.png';
-                    else if (percent >= 10) icon.url = '../../assets/circleRed.png';
+                    if (percent >= 1 && percent < 10) icon.url = '/src/assets/circleOrange.png';
+                    else if (percent >= 10) icon.url = '/src/assets/circleRed.png';
                     break;
                 case 'totalRecovered':
                     percent = getPercentage(country.TotalRecovered, general.TotalRecovered);
                     tabInfo = country.TotalRecovered;
-                    icon.url = '../../assets/circleOrange.png';
-                    if (percent >= 1 && percent < 5) icon.url = '../../assets/circleYellow.png';
-                    else if (percent >= 5) icon.url = '../../assets/circleGreen';
+                    icon.url = '/src/assets/circleOrange.png';
+                    if (percent >= 1 && percent < 5) icon.url = '/src/assets/circleYellow.png';
+                    else if (percent >= 5) icon.url = '/src/assets/circleGreen';
                     break;
                 case 'totalDeaths':
                     percent = getPercentage(country.TotalDeaths, general.TotalDeaths);
                     tabInfo = country.TotalDeaths;
-                    if (percent >= 1 && percent < 10) icon.url = '../../assets/circleOrange.png';
-                    else if (percent >= 10) icon.url = '../../assets/circleRed.png';
+                    if (percent >= 1 && percent < 10) icon.url = '/src/assets/circleOrange.png';
+                    else if (percent >= 10) icon.url = '/src/assets/circleRed.png';
                     break;
                 case 'deathsToCases':
                     percent = getPercentage(country.TotalDeaths, country.TotalConfirmed);
                     tabInfo = `${percent.toFixed(3)} %`;
-                    if (percent >= 1 && percent < 10) icon.url = '../../assets/circleOrange.png';
-                    else if (percent >= 10) icon.url = '../../assets/circleRed.png';
+                    if (percent >= 1 && percent < 10) icon.url = '/src/assets/circleOrange.png';
+                    else if (percent >= 10) icon.url = '/src/assets/circleRed.png';
                     break;
                 case 'recoveredToCases':
                     percent = getPercentage(country.TotalRecovered, country.TotalConfirmed);
                     tabInfo = `${percent.toFixed(3)} %`;
-                    if (percent >= 1 && percent < 10) icon.url = '../../assets/circleOrange.png';
-                    else if (percent >= 10) icon.url = '../../assets/circleRed.png';
+                    if (percent >= 1 && percent < 10) icon.url = '/src/assets/circleOrange.png';
+                    else if (percent >= 10) icon.url = '/src/assets/circleRed.png';
                     break;
                 default:
                     break;
@@ -127,6 +120,10 @@ class CovidMap {
             marker.addListener('mouseout', () => {
                 this.popup.close();
             });
+            marker.addListener('click', () => {
+                console.log(country.country)
+                this.countryTarget(country);
+            });
         });
     }
 
@@ -144,5 +141,3 @@ class CovidMap {
         markers.length = 0;
     }
 }
-
-export default CovidMap;
