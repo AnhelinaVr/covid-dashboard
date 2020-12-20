@@ -44,10 +44,18 @@ export default class CovidMap {
         });
     }
 
-    createLegend() {
+    createLegend(tabName) {
         this.legend.innerHTML = '<h3>Legend</h3>';
         const div = document.createElement('div');
-        div.innerHTML = `<img src="/src/assets/circleRed.png"> - > 10% 
+        if (tabName === 'totalRecovered')
+            div.innerHTML = `<img src="/src/assets/circleGreen.png"> - > 5% 
+        <br>       <img src="/src/assets/circleYellow.png"> - > 1% <br>   
+        <img src="/src/assets/circleOrange.png"> - < 1%`;
+        else if (tabName === 'recoveredToCases')
+            div.innerHTML = `<img src="/src/assets/circleGreen.png"> - > 50% 
+        <br>       <img src="/src/assets/circleYellow.png"> - > 20% <br>   
+        <img src="/src/assets/circleOrange.png"> - < 20%`;
+        else div.innerHTML = `<img src="/src/assets/circleRed.png"> - > 10% 
         <br>       <img src="/src/assets/circleOrange.png"> - > 1% <br>   
         <img src="/src/assets/circleYellow.png"> - < 1%`;
         this.legend.appendChild(div);
@@ -58,7 +66,7 @@ export default class CovidMap {
         const data = await getCountriesInfo()
         const countries = data.countriesInfo;
         const general = data.globalInfo;
-        this.createLegend();
+        this.createLegend(tabName);
 
         countries.forEach((country) => {
             const icon = {
@@ -77,10 +85,11 @@ export default class CovidMap {
                     break;
                 case 'totalRecovered':
                     percent = getPercentage(country.TotalRecovered, general.TotalRecovered);
+                    console.log(percent)
                     tabInfo = country.TotalRecovered;
-                    icon.url = '/src/assets/circleOrange.png';
-                    if (percent >= 1 && percent < 5) icon.url = '/src/assets/circleYellow.png';
-                    else if (percent >= 5) icon.url = '/src/assets/circleGreen';
+                    if (percent < 0.5) icon.url = '/src/assets/circleOrange.png';
+                    if (percent >= 0.5 && percent < 3) icon.url = '/src/assets/circleYellow.png';
+                    else if (percent >= 3) icon.url = '/src/assets/circleGreen.png';
                     break;
                 case 'totalDeaths':
                     percent = getPercentage(country.TotalDeaths, general.TotalDeaths);
@@ -97,8 +106,9 @@ export default class CovidMap {
                 case 'recoveredToCases':
                     percent = getPercentage(country.TotalRecovered, country.TotalConfirmed);
                     tabInfo = `${percent.toFixed(3)} %`;
-                    if (percent >= 1 && percent < 10) icon.url = '/src/assets/circleOrange.png';
-                    else if (percent >= 10) icon.url = '/src/assets/circleRed.png';
+                    if (percent < 20) icon.url = '/src/assets/circleOrange.png';
+                    if (percent >= 20 && percent < 50) icon.url = '/src/assets/circleYellow.png';
+                    else if (percent >= 50) icon.url = '/src/assets/circleGreen.png';
                     break;
                 default:
                     break;
