@@ -1,24 +1,18 @@
 import getCountriesInfo from './getCountriesInfo';
 
-const data = await getCountriesInfo();
-const countries = data.countriesInfo; // массив инфа по странам
-const general = data.globalInfo; // массив тотал инфа
+export { showCountries };
 
 const searchInput = document.getElementById('search');
 const results = document.getElementById('results');
 const buttonsTotal = document.querySelector('.buttonsTotal');
+let countries;
+const on100KCases = 100000;
+const getData = async () => {
+  const data = await getCountriesInfo();
+  countries = data.countriesInfo; // массив инфа по странам
+};
 
 let searchTerm = '';
-let countriesList;
-let flag;
-
-const fetchCountries = async () => {
-  countriesList = await fetch('https://api.covid19api.com/summary').then((res) => res.json());
-};
-const fetchFlag = async (CountryCode) => {
-  const link = `https://restcountries.eu/rest/v2/alpha/${CountryCode}?fields=population;flag`;
-  flag = await fetch(link).then((res) => res.json());
-};
 
 function numberWithCommas(x) {
   return x
@@ -27,29 +21,28 @@ function numberWithCommas(x) {
     .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
-const showFlag = async (CountryCode) => {
-  await fetchFlag(CountryCode);
-  const id = `#${CountryCode}`;
+const showFlag = async (country) => {
+  //   await fetchFlag(CountryCode);
+  const id = `#${country.CountryCode}`;
   const countryFlag = document.createElement('img');
   countryFlag.innerHTML = '';
   const li = document.querySelector(id);
 
-  countryFlag.src = flag.flag;
+  countryFlag.src = country.flag;
   countryFlag.classList.add('country-item__flag');
   li.prepend(countryFlag);
 };
 
-const getParams = async (CountryCode, data, population, filterParam) => {
-  await fetchFlag(CountryCode);
-  const id = `#${CountryCode}`;
+const getParams = async (data, casesOnPopalaton, filterParam, country) => {
+  const id = `#${country.CountryCode}`;
   const countryInfo = document.createElement('div');
   const countryPopulation = document.createElement('h2');
   const countryPopulationText = document.createElement('h5');
   const li = document.querySelector(id);
 
   let nameParam = filterParam.split(/(?=[A-Z])/).join(' ');
-  if (population) {
-    countryPopulation.innerText = numberWithCommas((data / flag.population) * 100000);
+  if (casesOnPopalaton) {
+    countryPopulation.innerText = numberWithCommas((data / country.population) * 100000);
     nameParam += ' on 100k';
   } else {
     countryPopulation.innerText = numberWithCommas(data);
@@ -62,61 +55,69 @@ const getParams = async (CountryCode, data, population, filterParam) => {
 
   countryInfo.appendChild(countryPopulation);
   countryInfo.appendChild(countryPopulationText);
-
   li.appendChild(countryInfo);
 };
 
-function createListElement(country, filterParam, ul, population) {
+function createListElement(country, filterParam, casesOnPopalaton) {
   const data = country[`${filterParam}`];
   const li = document.createElement('li');
   const countryName = document.createElement('h3');
+  const ul = document.querySelector('.countries');
 
   li.classList.add('country-item');
   li.id = country.CountryCode;
 
-  countryName.innerText = country.Country;
+  countryName.innerText = country.country;
   countryName.classList.add('country-item__name');
-
-  getParams(country.CountryCode, data, population, filterParam);
-
   li.appendChild(countryName);
   ul.appendChild(li);
-  showFlag(country.CountryCode);
+  getParams(data, casesOnPopalaton, filterParam, country);
+
+  showFlag(country);
 }
 
-const showCountries = async (filterParam, population) => {
+const showCountries = async (filterParam, casesOnPopalaton) => {
   results.innerHTML = '';
 
-  // getting the data
-  await fetchCountries();
+  if (!filterParam) {
+    filterParam = 'TotalConfirmed';
+  }
+  await getData();
 
   // creating structure
   const ul = document.createElement('ul');
   ul.classList.add('countries');
-  countriesList.Countries.filter((country) =>
-    country.Country.toLowerCase().includes(searchTerm.toLowerCase()),
-  )
-    .sort((a, b) => a[`${filterParam}`] - b[`${filterParam}`])
+  results.appendChild(ul);
+
+  countries
+    .filter((country) => country.country.toLowerCase().includes(searchTerm.toLowerCase()))
+    .sort((a, b) => {
+      if (casesOnPopalaton) {
+        return (
+          ((a[`${filterParam}`] / a.population) * on100KCases).toFixed()
+          - ((b[`${filterParam}`] / b.population) * on100KCases).toFixed()
+        );
+      }
+      return a[`${filterParam}`] - b[`${filterParam}`];
+    })
     .reverse()
     .forEach((country) => {
-      createListElement(country, filterParam, ul, population);
+      createListElement(country, filterParam, casesOnPopalaton);
     });
-  results.appendChild(ul);
 };
 
-showCountries('TotalConfirmed');
 let timerId = '';
 let currentParam = 'TotalConfirmed';
-let currentAtr = 'TotalConfirmed';
+let casesOnPopalaton = 'TotalConfirmed';
 
 searchInput.addEventListener('input', (e) => {
   searchTerm = e.target.value;
   clearTimeout(timerId);
-  timerId = setTimeout(showCountries, 700, currentParam, currentAtr);
+  timerId = setTimeout(showCountries, 700, currentParam, casesOnPopalaton);
 });
 
 buttonsTotal.addEventListener('click', (event) => {
   showCountries(event.target.id, event.target.getAttribute('population'));
   currentParam = event.target.id;
-  currentAtr = event.target.getAttribute('population');
+  casesOnPopalaton = event.target.getAttribute('population');
 });
