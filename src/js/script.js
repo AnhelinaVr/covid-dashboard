@@ -1,4 +1,4 @@
-import '../styles/main.scss'
+import '../styles/main.scss';
 import 'normalize.css';
 
-console.log("Hello!");
+console.log('Hello!');
