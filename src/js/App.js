@@ -23,7 +23,7 @@ export default class App {
     //   document.querySelector('.map-tabs'),
     //   this.setCountry.bind(this), this.data);
     // this.moduleMap.renderData('cases');
-    this.moduleList = new List(this.data);
+    this.moduleList = new List(this.data, this.setCountry.bind(this));
     this.moduleList.showCountries();
     this.moduleList.events();
   }
@@ -34,6 +34,6 @@ export default class App {
     this.country = country;
     this.moduleMap.setCountry(country.latlng);
     this.moduleTable.showDataTargetCountry(country.country);
-    // this.moduleList.showCountries(country.country);
+    this.moduleList.showCountries(country.country);
   }
 }

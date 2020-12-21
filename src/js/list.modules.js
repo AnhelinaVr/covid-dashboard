@@ -69,11 +69,17 @@ export default class List {
     this.getParams(data, casesOnPopalaton, filterParam, country, id);
 
     this.showFlag(country, id);
+
+    li.addEventListener('click', (event) => {
+      console.log(country);
+      this.countryTarget(country);
+    });
   }
 
   events() {
     const searchInput = document.getElementById('search');
     const buttonsTotal = document.querySelector('.buttonsTotal');
+    const list = document.querySelector('.countries');
     let searchTerm = '';
     let currentParam = 'cases';
     let casesOnPopalaton = 'TotalConfirmed';
@@ -88,6 +94,10 @@ export default class List {
       casesOnPopalaton = event.target.getAttribute('population');
       this.showCountries(currentParam, casesOnPopalaton);
     });
+
+    // list.addEventListener('click', (event) => {
+    //   console.log(event.target.closest('.country-item'));
+    // });
   }
 
   async showCountries(filterParam, casesOnPopalaton, searchTerm) {
