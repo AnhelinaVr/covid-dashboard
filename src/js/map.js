@@ -1,7 +1,6 @@
 // https://www.youtube.com/watch?v=UlfacaW8634
 
 import mapStyle from './map-style';
-import getCountriesInfo from './getCountriesInfo';
 
 function getPercentage(current, general) {
   return (current * 100) / general || 0;
@@ -20,7 +19,7 @@ function renderPopup(data) {
 }
 
 export default class CovidMap {
-  constructor(mapContainer, legend, funcCountryChange) {
+  constructor(mapContainer, legend, buttonsContainer, funcCountryChange, data) {
     this.mapContainer = mapContainer;
     this.map = this.initMap();
     this.markers = [];
@@ -29,6 +28,12 @@ export default class CovidMap {
     this.map.controls[window.google.maps.ControlPosition.RIGHT_BOTTOM]
       .push(this.legend);
     this.countryTarget = funcCountryChange;
+    this.globalInfo = data.globalInfo;
+    this.countriesInfo = data.countriesInfo;
+    this.buttonsContainer = buttonsContainer;
+    this.buttonsContainer.addEventListener('click', (event) => {
+      if (event.target.classList.contains('button-map--tab')) { this.renderData(event.target.dataset.tabName); }
+    });
   }
 
   initMap() {
@@ -47,7 +52,7 @@ export default class CovidMap {
   createLegend(tabName) {
     this.legend.innerHTML = '<h3>Legend</h3>';
     const div = document.createElement('div');
-    if (tabName === 'totalRecovered') {
+    if (tabName === 'recovered') {
       div.innerHTML = `<img src="/src/assets/circleGreen.png"> - > 5% 
         <br>       <img src="/src/assets/circleYellow.png"> - > 1% <br>   
         <img src="/src/assets/circleOrange.png"> - < 1%`;
@@ -65,9 +70,9 @@ export default class CovidMap {
 
   async renderData(tabName) {
     this.deleteMarkers();
-    const data = await getCountriesInfo();
-    const countries = data.countriesInfo;
-    const general = data.globalInfo;
+    const countries = this.countriesInfo;
+    const general = this.globalInfo;
+
     this.createLegend(tabName);
 
     countries.forEach((country) => {
@@ -79,33 +84,33 @@ export default class CovidMap {
       let tabInfo;
 
       switch (tabName) {
-        case 'totalCases':
-          percent = getPercentage(country.TotalConfirmed, general.TotalConfirmed);
-          tabInfo = country.TotalConfirmed;
+        case 'cases':
+          percent = getPercentage(country.cases, general.cases);
+          tabInfo = country.cases;
           if (percent >= 1 && percent < 10) icon.url = '/src/assets/circleOrange.png';
           else if (percent >= 10) icon.url = '/src/assets/circleRed.png';
           break;
-        case 'totalRecovered':
-          percent = getPercentage(country.TotalRecovered, general.TotalRecovered);
-          tabInfo = country.TotalRecovered;
+        case 'recovered':
+          percent = getPercentage(country.recovered, general.recovered);
+          tabInfo = country.recovered;
           if (percent < 0.5) icon.url = '/src/assets/circleOrange.png';
           if (percent >= 0.5 && percent < 3) icon.url = '/src/assets/circleYellow.png';
           else if (percent >= 3) icon.url = '/src/assets/circleGreen.png';
           break;
-        case 'totalDeaths':
-          percent = getPercentage(country.TotalDeaths, general.TotalDeaths);
-          tabInfo = country.TotalDeaths;
+        case 'deaths':
+          percent = getPercentage(country.deaths, general.deaths);
+          tabInfo = country.deaths;
           if (percent >= 1 && percent < 10) icon.url = '/src/assets/circleOrange.png';
           else if (percent >= 10) icon.url = '/src/assets/circleRed.png';
           break;
         case 'deathsToCases':
-          percent = getPercentage(country.TotalDeaths, country.TotalConfirmed);
+          percent = getPercentage(country.deaths, country.cases);
           tabInfo = `${percent.toFixed(3)} %`;
           if (percent >= 1 && percent < 10) icon.url = '/src/assets/circleOrange.png';
           else if (percent >= 10) icon.url = '/src/assets/circleRed.png';
           break;
         case 'recoveredToCases':
-          percent = getPercentage(country.TotalRecovered, country.TotalConfirmed);
+          percent = getPercentage(country.recovered, country.cases);
           tabInfo = `${percent.toFixed(3)} %`;
           if (percent < 20) icon.url = '/src/assets/circleOrange.png';
           if (percent >= 20 && percent < 50) icon.url = '/src/assets/circleYellow.png';

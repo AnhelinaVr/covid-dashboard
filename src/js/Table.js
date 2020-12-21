@@ -1,13 +1,11 @@
-import getCountriesInfo from './getCountriesInfo';
-
 export default class Table {
-  constructor(parentSelector, className, funcCountryChange) {
+  constructor(parentSelector, className, funcCountryChange, data) {
     const parent = document.querySelector(parentSelector);
     this.el = document.createElement('table');
     this.el.classList.add(className);
     parent.appendChild(this.el);
-    this.globalInfo = null;
-    this.finalCountries = [];
+    this.globalInfo = data.globalInfo;
+    this.finalCountries = data.countriesInfo;
     this.categories = ['Total', 'New', 'Total / 100k', 'New / 100k'];
     this.indexCategory = 0;
     this.searchTerm = '';
@@ -49,9 +47,9 @@ export default class Table {
     const ROW = document.createElement('tr');
     ROW.classList.add('module-table__table-thead__target-info');
     ROW.innerHTML = `<td class="module-table__table-thead__target-info__td-location">Global(total)</td>
-                     <td class="module-table__table-thead__target-info__td-infected">${this.globalInfo.TotalConfirmed}</td>
-                     <td class="module-table__table-thead__target-info__td-recovered">${this.globalInfo.TotalRecovered}</td>
-                     <td class="module-table__table-thead__target-info__td-deaths">${this.globalInfo.TotalDeaths}</td>`;
+                     <td class="module-table__table-thead__target-info__td-infected">${this.globalInfo.cases}</td>
+                     <td class="module-table__table-thead__target-info__td-recovered">${this.globalInfo.recovered}</td>
+                     <td class="module-table__table-thead__target-info__td-deaths">${this.globalInfo.deaths}</td>`;
     THEAD.appendChild(ROW);
   }
 
@@ -140,17 +138,12 @@ export default class Table {
   }
 
   sortDataCountries() {
-    this.finalCountries = this.finalCountries.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed);
+    this.finalCountries = this.finalCountries.sort((a, b) => b.cases - a.cases);
   }
 
   async showCountries(param) {
     const tbody = document.querySelector('tbody');
     tbody.innerHTML = '';
-
-    // getting the data
-    const data = await getCountriesInfo();
-    this.finalCountries = data.countriesInfo;
-    this.globalInfo = data.globalInfo;
 
     this.createRowWithGlobalInfo();
     this.sortDataCountries();
@@ -178,24 +171,24 @@ export default class Table {
         const POPULATION_100K = 100000;
         if (param === 'Total') {
           location = cntr.country;
-          confirmed = cntr.TotalConfirmed;
-          recovered = cntr.TotalRecovered;
-          death = cntr.TotalDeaths;
+          confirmed = cntr.cases;
+          recovered = cntr.recovered;
+          death = cntr.deaths;
         } else if (param === 'New') {
           location = cntr.country;
-          confirmed = cntr.NewConfirmed;
-          recovered = cntr.NewRecovered;
-          death = cntr.NewDeaths;
+          confirmed = cntr.todayCases;
+          recovered = cntr.todayRecovered;
+          death = cntr.todayDeaths;
         } else if (param === 'Total / 100k') {
           location = cntr.country;
-          confirmed = ((cntr.TotalConfirmed / cntr.population) * POPULATION_100K).toFixed(2);
-          recovered = ((cntr.TotalRecovered / cntr.population) * POPULATION_100K).toFixed(2);
-          death = ((cntr.TotalDeaths / cntr.population) * POPULATION_100K).toFixed(2);
+          confirmed = ((cntr.cases / cntr.population) * POPULATION_100K).toFixed(2);
+          recovered = ((cntr.recovered / cntr.population) * POPULATION_100K).toFixed(2);
+          death = ((cntr.deaths / cntr.population) * POPULATION_100K).toFixed(2);
         } else if (param === 'New / 100k') {
           location = cntr.country;
-          confirmed = ((cntr.NewConfirmed / cntr.population) * POPULATION_100K).toFixed(2);
-          recovered = ((cntr.NewRecovered / cntr.population) * POPULATION_100K).toFixed(2);
-          death = ((cntr.NewDeaths / cntr.population) * POPULATION_100K).toFixed(2);
+          confirmed = ((cntr.todayCases / cntr.population) * POPULATION_100K).toFixed(2);
+          recovered = ((cntr.todayRecovered / cntr.population) * POPULATION_100K).toFixed(2);
+          death = ((cntr.todayDeaths / cntr.population) * POPULATION_100K).toFixed(2);
         }
         tdLocation.innerText = location;
         tdInfected.innerText = confirmed;
