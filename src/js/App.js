@@ -1,5 +1,6 @@
 import Table from './Table';
 import CovidMap from './map';
+import Chart from './chart-4';
 import getData from './getCountriesInfo';
 
 export default class App {
@@ -22,6 +23,10 @@ export default class App {
       document.querySelector('.map-tabs'),
       this.setCountry.bind(this), this.data);
     this.moduleMap.renderData('cases');
+    this.moduleChart = new Chart();
+    this.moduleChart.init();
+    this.moduleChart.setParam = document.querySelector('.slide--active')
+      .textContent.toLowerCase();
   }
 
   /* в свою таблицу передаю функцию которая вызывается когда страна меняется */

@@ -18,8 +18,8 @@ class Chart {
   set setParam(paramToSet) {
     if (
       paramToSet !== 'cases'
-      && paramToSet !== 'deaths'
-      && paramToSet !== 'recovered'
+            && paramToSet !== 'deaths'
+            && paramToSet !== 'recovered'
     ) {
       throw new Error('Некорректный параметр графика (Случаи)');
     }
@@ -82,7 +82,7 @@ class Chart {
           date: Date.parse(dataObj[i].last_update),
           [this.paramToSet]: (
             (dataObj[i][`total_${this.paramToSet}`] / population)
-              * 100000
+                        * 100000
           ).toFixed(2),
         });
       } else {
@@ -103,7 +103,7 @@ class Chart {
           date: Date.parse(dataObj[i].last_update),
           [this.paramToSet]: (
             (dataObj[i][`${this.paramToSet}`] / population)
-              * 100000
+                        * 100000
           ).toFixed(2),
         });
       } else {
@@ -163,3 +163,5 @@ class Chart {
     this.getData();
   }
 }
+
+export default Chart;
