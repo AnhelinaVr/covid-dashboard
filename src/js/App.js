@@ -2,6 +2,7 @@ import Table from './Table';
 import CovidMap from './map';
 import Chart from './chart-4';
 import getData from './getCountriesInfo';
+import { doc } from 'prettier';
 
 export default class App {
   constructor() {
@@ -23,10 +24,13 @@ export default class App {
       document.querySelector('.map-tabs'),
       this.setCountry.bind(this), this.data);
     this.moduleMap.renderData('cases');
-    this.moduleChart = new Chart();
+    this.moduleChart = new Chart('cases');
     this.moduleChart.init();
-    this.moduleChart.setParam = document.querySelector('.slide--active')
-      .textContent.toLowerCase();
+    this.chartButtons = document.querySelector('.graphButtons');
+    this.chartButtons.addEventListener('click', ({ target }) => {
+      this.moduleChart = new Chart(`${target.textContent.toLowerCase()}`);
+      this.moduleChart.init();
+    });
   }
 
   /* в свою таблицу передаю функцию которая вызывается когда страна меняется */
