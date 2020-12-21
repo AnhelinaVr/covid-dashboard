@@ -1,2 +1,44 @@
 /* Base: contained within this file are all 
 your resets, variables, mixins, and any utility classes. */
+
+$color_primary:#272727;
+$color_secondary:#747474;
+$color_orange:#FF652F;
+$color_yellow:#FFE400;
+$color_green:#14A76C;
+$color_ligth:#FFFFFF;
+@mixin p {
+    font: {
+        size: 16px;
+        family: Georgia;
+        style: normal;
+        weight: normal;
+    }
+    line-height: 130%;
+}
+
+@mixin button {
+    margin: 5px 20px;
+    cursor: pointer;
+    transition: 0.3s;
+    border: 0px;
+    background-color: transparent;
+    outline: none;
+}
+
+@mixin button-hover {
+    transition: 0.3s;
+    transform: scale(0.9);
+}
+
+@mixin button-active {
+    transition: 0.3s;
+    transform: scale(0.9);
+    border: 0px;
+}
+
+@mixin button__img {
+    width: 20px;
+    height: 20px;
+    page-break-after: 5px;
+}
