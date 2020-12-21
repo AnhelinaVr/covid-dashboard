@@ -1,10 +1,11 @@
 /* Base: contained within this file are all 
 your resets, variables, mixins, and any utility classes. */
 
-
-$color_primary:#2A3132;
-$color_secondary:#336B87;
-$color_third:#7a3321;
+$color_primary:#272727;
+$color_secondary:#747474;
+$color_orange:#FF652F;
+$color_yellow:#FFE400;
+$color_green:#14A76C;
 $color_ligth:#FFFFFF;
 @mixin p {
     font: {
@@ -41,4 +42,3 @@ $color_ligth:#FFFFFF;
     height: 20px;
     page-break-after: 5px;
 }
-
