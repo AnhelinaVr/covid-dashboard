@@ -4,11 +4,11 @@ import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 
 class Chart {
-  constructor() {
+  constructor(paramToSet) {
     this.graph = am4core.create('chartdiv', am4charts.XYChart);
     this.dataCountry = '';
     this.graphData = [];
-    this.paramToSet = 'cases';
+    this.paramToSet = paramToSet;
     this.showByHundredThousand = false;
     this.dateAxis = this.graph.xAxes.push(new am4charts.DateAxis());
     this.valueAxis = this.graph.yAxes.push(new am4charts.ValueAxis());
@@ -18,8 +18,8 @@ class Chart {
   set setParam(paramToSet) {
     if (
       paramToSet !== 'cases'
-            && paramToSet !== 'deaths'
-            && paramToSet !== 'recovered'
+      && paramToSet !== 'deaths'
+      && paramToSet !== 'recovered'
     ) {
       throw new Error('Некорректный параметр графика (Случаи)');
     }
@@ -33,6 +33,10 @@ class Chart {
     this.showByHundredThousand = param;
   }
 
+  get getParam() {
+    return this.paramToSet;
+  }
+
   set setCountry(Country) {
     this.dataCountry = Country;
   }
@@ -43,6 +47,7 @@ class Chart {
     this.graph.hiddenState.properties.opacity = 0;
     this.graph.background.fill = am4core.color('#1e2128');
     this.graph.paddingRight = 20;
+    this.graph.dataSource.updateCurrentData = true;
   }
 
   setGraphAxix() {
@@ -82,7 +87,7 @@ class Chart {
           date: Date.parse(dataObj[i].last_update),
           [this.paramToSet]: (
             (dataObj[i][`total_${this.paramToSet}`] / population)
-                        * 100000
+            * 100000
           ).toFixed(2),
         });
       } else {
@@ -103,7 +108,7 @@ class Chart {
           date: Date.parse(dataObj[i].last_update),
           [this.paramToSet]: (
             (dataObj[i][`${this.paramToSet}`] / population)
-                        * 100000
+            * 100000
           ).toFixed(2),
         });
       } else {

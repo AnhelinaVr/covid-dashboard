@@ -24,13 +24,17 @@ export default class App {
       document.querySelector('.map-tabs'),
       this.setCountry.bind(this), this.data);
     this.moduleMap.renderData('cases');
-    this.moduleChart = new Chart();
+    this.moduleChart = new Chart('cases');
     this.moduleChart.init();
-    this.moduleChart.setParam = document.querySelector('.slide--active')
-      .textContent.toLowerCase();
+    this.chartButtons = document.querySelector('.graphButtons');
+    this.chartButtons.addEventListener('click', ({ target }) => {
+      this.moduleChart = new Chart(`${target.textContent.toLowerCase()}`);
+      this.moduleChart.init();
+    });
     this.moduleList = new List(this.data, this.setCountry.bind(this));
     this.moduleList.showCountries();
     this.moduleList.events();
+
   }
 
   /* в свою таблицу передаю функцию которая вызывается когда страна меняется */

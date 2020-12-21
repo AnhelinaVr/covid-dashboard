@@ -1,3 +1,4 @@
+import '../index.html';
 import '../styles/main.scss';
 import 'normalize.css';
 import App from './App';
