@@ -39,6 +39,5 @@ export default class App {
     this.country = country;
     this.moduleMap.setCountry(country.latlng);
     this.moduleTable.showDataTargetCountry(country.country);
-    this.moduleList.showCountries(country.country);
   }
 }

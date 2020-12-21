@@ -1,55 +1,51 @@
+function numberWithCommas(cases) {
+  return cases
+    .toFixed()
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+function showFlag(country, id) {
+  const countryFlag = document.createElement('img');
+  countryFlag.innerHTML = '';
+  const li = document.querySelector(`#${id}`);
+
+  countryFlag.src = country.flag;
+  countryFlag.classList.add('country-item__flag');
+  li.prepend(countryFlag);
+}
+
+function getParams(data, casesOnPopalaton, filterParam, country, id) {
+  const countryInfo = document.createElement('div');
+  const countryPopulation = document.createElement('h2');
+  const countryPopulationText = document.createElement('h5');
+  const li = document.querySelector(`#${id}`);
+
+  let nameParam = filterParam.split(/(?=[A-Z])/).join(' ');
+  if (casesOnPopalaton) {
+    countryPopulation.innerText = numberWithCommas((data / country.population) * 100000);
+    nameParam += ' on 100k';
+  } else {
+    countryPopulation.innerText = numberWithCommas(data);
+  }
+  countryPopulation.classList.add('country-item__population');
+  countryInfo.classList.add('country-item__info');
+
+  countryPopulationText.innerText = nameParam;
+  countryPopulationText.classList.add('country-item__population--text');
+
+  countryInfo.appendChild(countryPopulation);
+  countryInfo.appendChild(countryPopulationText);
+  li.appendChild(countryInfo);
+}
 export default class List {
   constructor(data, funcCountryChange) {
     this.searchInput = document.getElementById('search');
     this.results = document.getElementById('results');
     this.on100KCases = 100000;
     this.searchTerm = '';
-
     this.countryTarget = funcCountryChange;
-
     this.finalCountries = data.countriesInfo;
-  }
-
-  numberWithCommas(cases) {
-    return cases
-      .toFixed()
-      .toString()
-      .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  }
-
-  showFlag(country, id) {
-    // const id = `#${country.countryCode}`;
-    const countryFlag = document.createElement('img');
-    countryFlag.innerHTML = '';
-    const li = document.querySelector(`#${id}`);
-
-    countryFlag.src = country.flag;
-    countryFlag.classList.add('country-item__flag');
-    li.prepend(countryFlag);
-  }
-
-  getParams(data, casesOnPopalaton, filterParam, country, id) {
-    const countryInfo = document.createElement('div');
-    const countryPopulation = document.createElement('h2');
-    const countryPopulationText = document.createElement('h5');
-    const li = document.querySelector(`#${id}`);
-
-    let nameParam = filterParam.split(/(?=[A-Z])/).join(' ');
-    if (casesOnPopalaton) {
-      countryPopulation.innerText = this.numberWithCommas((data / country.population) * 100000);
-      nameParam += ' on 100k';
-    } else {
-      countryPopulation.innerText = this.numberWithCommas(data);
-    }
-    countryPopulation.classList.add('country-item__population');
-    countryInfo.classList.add('country-item__info');
-
-    countryPopulationText.innerText = nameParam;
-    countryPopulationText.classList.add('country-item__population--text');
-
-    countryInfo.appendChild(countryPopulation);
-    countryInfo.appendChild(countryPopulationText);
-    li.appendChild(countryInfo);
   }
 
   createListElement(country, filterParam, casesOnPopalaton) {
@@ -66,12 +62,11 @@ export default class List {
     countryName.classList.add('country-item__name');
     li.appendChild(countryName);
     ul.appendChild(li);
-    this.getParams(data, casesOnPopalaton, filterParam, country, id);
+    getParams(data, casesOnPopalaton, filterParam, country, id);
 
-    this.showFlag(country, id);
+    showFlag(country, id);
 
-    li.addEventListener('click', (event) => {
-      console.log(country);
+    li.addEventListener('click', () => {
       this.countryTarget(country);
     });
   }
@@ -79,7 +74,6 @@ export default class List {
   events() {
     const searchInput = document.getElementById('search');
     const buttonsTotal = document.querySelector('.buttonsTotal');
-    const list = document.querySelector('.countries');
     let searchTerm = '';
     let currentParam = 'cases';
     let casesOnPopalaton = 'TotalConfirmed';
@@ -94,16 +88,13 @@ export default class List {
       casesOnPopalaton = event.target.getAttribute('population');
       this.showCountries(currentParam, casesOnPopalaton);
     });
-
-    // list.addEventListener('click', (event) => {
-    //   console.log(event.target.closest('.country-item'));
-    // });
   }
 
   async showCountries(filterParam, casesOnPopalaton, searchTerm) {
+    let paramToFilter = filterParam;
     this.results.innerHTML = '';
-    if (!filterParam) {
-      filterParam = 'cases';
+    if (!paramToFilter) {
+      paramToFilter = 'cases';
     }
 
     if (searchTerm) {
@@ -117,23 +108,19 @@ export default class List {
     this.results.appendChild(ul);
     this.finalCountries
       .filter((country) => country.country.toLowerCase().includes(this.searchTerm.toLowerCase()))
-      .filter((country) => {
-        if (country.countryCode) {
-          return country.countryCode;
-        }
-      })
+      .filter((country) => country.countryCode)
       .sort((a, b) => {
         if (casesOnPopalaton) {
           return (
-            ((a[`${filterParam}`] / a.population) * this.on100KCases).toFixed()
-            - ((b[`${filterParam}`] / b.population) * this.on100KCases).toFixed()
+            ((a[`${paramToFilter}`] / a.population) * this.on100KCases).toFixed()
+                        - ((b[`${paramToFilter}`] / b.population) * this.on100KCases).toFixed()
           );
         }
-        return a[`${filterParam}`] - b[`${filterParam}`];
+        return a[`${paramToFilter}`] - b[`${paramToFilter}`];
       })
       .reverse()
       .forEach((country) => {
-        this.createListElement(country, filterParam, casesOnPopalaton);
+        this.createListElement(country, paramToFilter, casesOnPopalaton);
       });
   }
 }
