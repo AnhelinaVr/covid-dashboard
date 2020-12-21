@@ -12,6 +12,25 @@
 
     <main class="main">
         <section class="module-list">
+            <div class="list-module">
+              <div class="buttonsTotal">
+                <button id="cases">Total Confirmed</button>
+                <button id="deaths">Total Deaths</button>
+                <button id="recovered">Total Recovered</button>
+                <button id="todayCases">New Confirmed</button>
+                <button id="todayDeaths">New Deaths</button>
+                <button id="todayRecovered">New Recovered</button> <br>
+                <button id="cases" population="100k">Total Confirmed 100k</button>
+                <button id="deaths" population="100k">Total Deaths 100k</button>
+                <button id="recovered" population="100k">Total Recovered 100k</button>
+                <button id="todayCases" population="100k">New Confirmed 100k</button>
+                <button id="todayDeaths" population="100k">New Deaths 100k</button>
+                <button id="todayRecovered" population="100k">New Recovered 100k</button>
+              </div>
+              <h2>Instant Search</h2>
+              <input type="text" id="search" placeholder="Search for a Country" />
+              <div id="results"></div>
+            </div>
         </section>
         <section class="module-map">
             <div id="map" class="map">
