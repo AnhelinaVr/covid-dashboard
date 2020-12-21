@@ -2,7 +2,6 @@ import Table from './Table';
 import CovidMap from './map';
 import Chart from './chart-4';
 import getData from './getCountriesInfo';
-import { doc } from 'prettier';
 
 export default class App {
   constructor() {
