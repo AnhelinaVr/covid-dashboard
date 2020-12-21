@@ -1,6 +1,7 @@
 import '../styles/main.scss';
 import 'normalize.css';
 
-import { showCountries } from './list.modules';
+import App from './App';
 
-showCountries();
+const app = new App();
+app.getDatas().then(() => app.whendataready());

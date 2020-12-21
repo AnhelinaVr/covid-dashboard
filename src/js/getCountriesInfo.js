@@ -1,63 +1,24 @@
-/**
- * Возвращает данные по covid в разных странах
- * И некоторую доп. информацию (население, координаты)
- *
- * @return {Object}
- *
- *    !!! как получить данные
- *
- *
- *   -------------------------------------------
- *    import getCountriesInfo from './getCountriesInfo';
- *    ...
- *    const data = await getCountriesInfo()
- *    const countries = data.countriesInfo;     // массив инфа по странам
- *    const general = data.globalInfo;          // массив тотал инфа
- *   -------------------------------------------
- *
- *
- * CountryCode: "AF"
- * NewConfirmed: 243
- * NewDeaths: 5
- * NewRecovered: 35
- * TotalConfirmed: 49621
- * TotalDeaths: 2030
- * TotalRecovered: 38540
- * country: "Afghanistan"
- * flag: "https://restcountries.eu/data/afg.svg"
- * latlng: [33, 65]
- * population: 27657145
- *
- */
-
 export default async function getCountriesInfo() {
-  const dataCovid = await fetch('https://api.covid19api.com/summary')
-    .then((result) => result.json());
-  const dataPopulation = await fetch('https://restcountries.eu/rest/v2/all')
-    .then((result) => result.json());
-  const countries = dataCovid.Countries;
-  const globalInfo = dataCovid.Global;
+  const response = await fetch('https://disease.sh/v3/covid-19/countries');
+  const responseGlobal = await fetch('https://disease.sh/v3/covid-19/all');
+  const countries = await response.json();
+  const globalInfo = await responseGlobal.json();
   const countriesInfo = [];
   countries.forEach((elem) => {
     const newCountry = {};
-    newCountry.CountryCode = elem.CountryCode;
-    newCountry.country = elem.Country;
-    newCountry.TotalConfirmed = elem.TotalConfirmed;
-    newCountry.TotalRecovered = elem.TotalRecovered;
-    newCountry.TotalDeaths = elem.TotalDeaths;
-    newCountry.NewConfirmed = elem.NewConfirmed;
-    newCountry.NewRecovered = elem.NewRecovered;
-    newCountry.NewDeaths = elem.NewDeaths;
-    newCountry.latlng = dataPopulation.find(
-      (obj) => elem.CountryCode === obj.alpha2Code,
-    ).latlng;
-    newCountry.population = dataPopulation.find(
-      (obj) => elem.CountryCode === obj.alpha2Code,
-    ).population;
-    newCountry.flag = dataPopulation.find(
-      (obj) => elem.CountryCode === obj.alpha2Code,
-    ).flag;
+    newCountry.countryCode = elem.countryInfo.iso2;
+    newCountry.country = elem.country;
+    newCountry.cases = elem.cases;
+    newCountry.recovered = elem.recovered;
+    newCountry.deaths = elem.deaths;
+    newCountry.todayCases = elem.todayCases;
+    newCountry.todayRecovered = elem.todayRecovered;
+    newCountry.todayDeaths = elem.todayDeaths;
+    newCountry.latlng = [elem.countryInfo.lat, elem.countryInfo.long];
+    newCountry.population = elem.population;
+    newCountry.flag = elem.countryInfo.flag;
     countriesInfo.push(newCountry);
   });
+
   return { countriesInfo, globalInfo };
 }
