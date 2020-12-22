@@ -1,47 +1,30 @@
-import getCountriesInfo from './getCountriesInfo';
-
 export default class Table {
-  constructor(parentSelector, className, funcCountryChange) {
-    const parent = document.querySelector(parentSelector);
-    this.el = document.createElement('table');
-    this.el.classList.add(className);
-    parent.appendChild(this.el);
-    this.globalInfo = null;
-    this.finalCountries = [];
+  constructor(el, funcCountryChange, data) {
+    this.el = document.querySelector(el);
+    this.globalInfo = data.globalInfo;
+    this.finalCountries = data.countriesInfo;
     this.categories = ['Total', 'New', 'Total / 100k', 'New / 100k'];
     this.indexCategory = 0;
     this.searchTerm = '';
     this.countryTarget = funcCountryChange;
   }
 
-  /* createSeacrhFieldInModuleTable() {
-    const THEAD = this.el.querySelector('.module-table__table-thead');
-    const ROW_INPUT = document.createElement('tr');
-    THEAD.appendChild(ROW_INPUT);
-    ROW_INPUT.innerHTML = '<input type="text" id="search" placeholder="Search for a Country">';
-    const INPUT = document.getElementById('search');
-    INPUT.addEventListener('input', (e) => {
-      this.searchTerm = e.target.value;
-      this.showCountries(this.categories[this.indexCategory]);
-    });
-  } */
-
   createSeacrhFieldAndTabsContainerInModuleTable() {
     const THEAD = this.el.querySelector('.module-table__table-thead');
     const ROW_INPUT = document.createElement('tr');
     ROW_INPUT.classList.add('module-table__table-thead__search-tabs-container');
     THEAD.appendChild(ROW_INPUT);
-    ROW_INPUT.innerHTML = `<button class="module-table__button" id="module-table__button__reset">
-                             <img class="module-table__button__img" src="/src/assets/icons/refresh.png" alt="Refresh">
+    ROW_INPUT.innerHTML = `<button class="module-table__button module-table__button__reset" id="module-table__button__reset">
+                             <img class="module-table__button__reset__img" src="/src/assets/icons/refresh.png" alt="Reset">
                            </button>
                            <input type="text" class="module-table__table-thead__search" id="module-table__table-search" placeholder="Search for a Country">
                            <div class = "module-table__table-thead__search-tabs-container__tab">
                              <button class="module-table__button" id="module-table__button__prev">
-                               <img class="module-table__button__img" src="/src/assets/icons/left-arrow.png" alt="Prev">
+                               <img class="module-table__button__arrow__img" src="/src/assets/icons/left-arrow.png" alt="Prev">
                              </button>
                              <div class="module-table__text-categories">Total</div>
                              <button class="module-table__button" id="module-table__button__next">
-                               <img class="module-table__button__img" src="/src/assets/icons/right-arrow.png" alt="Next">
+                               <img class="module-table__button__arrow__img" src="/src/assets/icons/right-arrow.png" alt="Next">
                              </button>
                            </div>`;
     const INPUT = document.getElementById('module-table__table-search');
@@ -52,23 +35,6 @@ export default class Table {
     this.addEventListenerForButton();
   }
 
-  /* createTabsContainerInModuleTable() {
-    const THEAD = this.el.querySelector('.module-table__table-thead');
-    const ROW_TABS_CONTAINER = document.createElement('tr');
-    ROW_TABS_CONTAINER.classList.add('module-table__table-thead__tabs-container');
-    THEAD.appendChild(ROW_TABS_CONTAINER);
-    ROW_TABS_CONTAINER.innerHTML = `<button class=
-    "module-table__button" id="module-table__button__prev">
-          <img class="module-table__button__img" src="/src/assets/icons/left-arrow.png" alt="Prev">
-                                    </button>
-                                    <div class="module-table__text-categories">Total</div>
-       <button class="module-table__button" id="module-table__button__next">
-      <img class="module-table__button__img" src="/src/assets/icons/right-arrow.png" alt="Next">
-                                    </button>`;
-
-    this.addEventListenerForButton();
-  }
- */
   createRowWithGlobalInfo() {
     const THEAD = this.el.querySelector('.module-table__table-thead');
     if (THEAD.querySelector('.module-table__table-thead__target-info')) {
@@ -77,10 +43,35 @@ export default class Table {
     }
     const ROW = document.createElement('tr');
     ROW.classList.add('module-table__table-thead__target-info');
-    ROW.innerHTML = `<td class="module-table__table-thead__target-info__td-location">Global(total)</td>
-                     <td class="module-table__table-thead__target-info__td-infected">${this.globalInfo.TotalConfirmed}</td>
-                     <td class="module-table__table-thead__target-info__td-recovered">${this.globalInfo.TotalRecovered}</td>
-                     <td class="module-table__table-thead__target-info__td-deaths">${this.globalInfo.TotalDeaths}</td>`;
+    let CASES = null;
+    let RECOVERED = null;
+    let DEATHS = null;
+    const POPULATION_100K = 100000;
+    if (this.indexCategory === 0) {
+      CASES = this.globalInfo.cases;
+      RECOVERED = this.globalInfo.recovered;
+      DEATHS = this.globalInfo.deaths;
+    } else if (this.indexCategory === 1) {
+      CASES = this.globalInfo.todayCases;
+      RECOVERED = this.globalInfo.todayRecovered;
+      DEATHS = this.globalInfo.todayDeaths;
+    } else if (this.indexCategory === 2) {
+      CASES = ((this.globalInfo.cases / this.globalInfo.population) * POPULATION_100K).toFixed(2);
+      RECOVERED = ((this.globalInfo.recovered / this.globalInfo.population)
+       * POPULATION_100K).toFixed(2);
+      DEATHS = ((this.globalInfo.deaths / this.globalInfo.population) * POPULATION_100K).toFixed(2);
+    } else if (this.indexCategory === 3) {
+      CASES = ((this.globalInfo.todayCases / this.globalInfo.population)
+       * POPULATION_100K).toFixed(2);
+      RECOVERED = ((this.globalInfo.todayRecovered / this.globalInfo.population)
+       * POPULATION_100K).toFixed(2);
+      DEATHS = ((this.globalInfo.todayDeaths / this.globalInfo.population)
+       * POPULATION_100K).toFixed(2);
+    }
+    ROW.innerHTML = `<td class="module-table__table-thead__target-info__td-location">Global</td>
+                     <td class="module-table__table-thead__target-info__td-infected">${CASES}</td>
+                     <td class="module-table__table-thead__target-info__td-recovered">${RECOVERED}</td>
+                     <td class="module-table__table-thead__target-info__td-deaths">${DEATHS}</td>`;
     THEAD.appendChild(ROW);
   }
 
@@ -106,17 +97,23 @@ export default class Table {
   addEventListenerForCountry() {
     const COUNTRIES = document.querySelectorAll('.module-table__table-tbody__tr');
     const INPUT = document.getElementById('module-table__table-search');
-    COUNTRIES.forEach((country) => {
-      country.addEventListener('click', () => {
-        const LOCATION = country.querySelector('.module-table__table-tbody__tr__td-location').textContent;
-        let DATA_COUNTRY = null;
-        DATA_COUNTRY = this.finalCountries.find((obj) => LOCATION === obj.Country);
-        INPUT.value = DATA_COUNTRY.Country;
+    COUNTRIES.forEach((cntr) => {
+      cntr.addEventListener('click', () => {
+        const LOCATION = cntr.querySelector('.module-table__table-tbody__tr__td-location').textContent;
+        const DATA_COUNTRY = this.finalCountries.find((obj) => LOCATION === obj.country);
+        INPUT.value = DATA_COUNTRY.country;
         this.searchTerm = INPUT.value;
-        this.showCountries(this.categories[this.indexCategory]);
         this.countryTarget(DATA_COUNTRY);
       });
     });
+  }
+
+  showDataTargetCountry(targetCountry) {
+    const INPUT = document.getElementById('module-table__table-search');
+    const DATA_COUNTRY = targetCountry;
+    INPUT.value = DATA_COUNTRY;
+    this.searchTerm = DATA_COUNTRY;
+    this.showCountries(this.categories[this.indexCategory]);
   }
 
   addEventListenerForButton() {
@@ -146,10 +143,6 @@ export default class Table {
           NAME_CATEGORIES.textContent = `${this.categories[this.indexCategory]}`;
           this.showCountries(this.categories[this.indexCategory]);
         }
-        /* this.indexCategory += 0;
-          this.searchTerm = '';
-          NAME_CATEGORIES.textContent = `${this.categories[this.indexCategory]}`;
-          this.showCountries(this.categories[this.indexCategory]); */
       });
     });
   }
@@ -162,59 +155,25 @@ export default class Table {
     this.el.appendChild(THEAD);
     this.el.appendChild(TBODY);
     this.createSeacrhFieldAndTabsContainerInModuleTable();
-    /* this.createSeacrhFieldInModuleTable();
-    this.createTabsContainerInModuleTable(); */
     this.createRowWithNamesColumns();
-    /* this.createRowWithGlobalInfo(); */
   }
 
-  /* async fetchCountries() {
-    const DATA_BY_COUNTRIES_COVID = await fetch('https://api.covid19api.com/summary').then((result) => result.json());
-    const DATA_BY_COUNTRIES_OTHER = await fetch('https://restcountries.eu/rest/v2/all').then((result) => result.json());
-    this.globalInfo = DATA_BY_COUNTRIES_COVID.Global;
-    this.countries = DATA_BY_COUNTRIES_COVID.Countries;
-    this.finalCountries = [];
-    this.countries.forEach((el) => {
-      const newCountry = {};
-      newCountry.Country = el.Country;
-      newCountry.TotalConfirmed = el.TotalConfirmed;
-      newCountry.TotalRecovered = el.TotalRecovered;
-      newCountry.TotalDeaths = el.TotalDeaths;
-      newCountry.NewConfirmed = el.NewConfirmed;
-      newCountry.NewRecovered = el.NewRecovered;
-      newCountry.NewDeaths = el.NewDeaths;
-      newCountry.Coordinates = DATA_BY_COUNTRIES_OTHER
-        .find((obj) => el.CountryCode === obj.alpha2Code).latlng;
-      newCountry.Population = DATA_BY_COUNTRIES_OTHER
-        .find((obj) => el.CountryCode === obj.alpha2Code).population;
-      newCountry.Flag = DATA_BY_COUNTRIES_OTHER
-        .find((obj) => el.CountryCode === obj.alpha2Code).flag;
-      this.finalCountries.push(newCountry);
-    });
-    this.sortDataCountries();
-    console.log(this.finalCountries);
-  } */
-
   sortDataCountries() {
-    this.finalCountries = this.finalCountries.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed);
+    this.finalCountries = this.finalCountries.sort((a, b) => b.cases - a.cases);
+    return this.finalCountries.length;
   }
 
   async showCountries(param) {
     const tbody = document.querySelector('tbody');
     tbody.innerHTML = '';
 
-    // getting the data
-    const data = await getCountriesInfo();
-    this.finalCountries = data.countriesInfo;
-    this.globalInfo = data.globalInfo;
-    console.log(this.finalCountries);
-
     this.createRowWithGlobalInfo();
+    this.sortDataCountries();
 
     // creating structure
     this.finalCountries.filter((country) => country.country.toLowerCase()
       .includes(this.searchTerm.toLowerCase()))
-      .forEach((country) => {
+      .forEach((cntr) => {
         const ROW = document.createElement('tr');
         ROW.classList.add('module-table__table-tbody__tr');
         const tdLocation = document.createElement('td');
@@ -233,25 +192,25 @@ export default class Table {
         let death = null;
         const POPULATION_100K = 100000;
         if (param === 'Total') {
-          location = country.country;
-          confirmed = country.TotalConfirmed;
-          recovered = country.TotalRecovered;
-          death = country.TotalDeaths;
+          location = cntr.country;
+          confirmed = cntr.cases;
+          recovered = cntr.recovered;
+          death = cntr.deaths;
         } else if (param === 'New') {
-          location = country.Country;
-          confirmed = country.NewConfirmed;
-          recovered = country.NewRecovered;
-          death = country.NewDeaths;
+          location = cntr.country;
+          confirmed = cntr.todayCases;
+          recovered = cntr.todayRecovered;
+          death = cntr.todayDeaths;
         } else if (param === 'Total / 100k') {
-          location = country.Country;
-          confirmed = ((country.TotalConfirmed / country.Population) * POPULATION_100K).toFixed(2);
-          recovered = ((country.TotalRecovered / country.Population) * POPULATION_100K).toFixed(2);
-          death = ((country.TotalDeaths / country.Population) * POPULATION_100K).toFixed(2);
+          location = cntr.country;
+          confirmed = ((cntr.cases / cntr.population) * POPULATION_100K).toFixed(2);
+          recovered = ((cntr.recovered / cntr.population) * POPULATION_100K).toFixed(2);
+          death = ((cntr.deaths / cntr.population) * POPULATION_100K).toFixed(2);
         } else if (param === 'New / 100k') {
-          location = country.Country;
-          confirmed = ((country.NewConfirmed / country.Population) * POPULATION_100K).toFixed(2);
-          recovered = ((country.NewRecovered / country.Population) * POPULATION_100K).toFixed(2);
-          death = ((country.NewDeaths / country.Population) * POPULATION_100K).toFixed(2);
+          location = cntr.country;
+          confirmed = ((cntr.todayCases / cntr.population) * POPULATION_100K).toFixed(2);
+          recovered = ((cntr.todayRecovered / cntr.population) * POPULATION_100K).toFixed(2);
+          death = ((cntr.todayDeaths / cntr.population) * POPULATION_100K).toFixed(2);
         }
         tdLocation.innerText = location;
         tdInfected.innerText = confirmed;
@@ -259,6 +218,5 @@ export default class Table {
         tdDeath.innerText = death;
       });
     this.addEventListenerForCountry();
-    console.log(this.globalInfo);
   }
 }
