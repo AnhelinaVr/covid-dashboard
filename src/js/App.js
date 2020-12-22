@@ -31,8 +31,6 @@ export default class App {
     // chart module
     this.moduleChart = new Chart();
     this.moduleChart.init();
-    this.moduleChart.setParam = document.querySelector('.slide--active')
-      .textContent.toLowerCase();
     this.resetToGlobalButton = document.querySelector('.resetToGlobalButton');
     this.resetToGlobalButton.addEventListener('click', () => {
       this.moduleChart = new Chart('cases');
@@ -54,6 +52,7 @@ export default class App {
 
   addEventListenerForButtonFullscreenClick() {
     const SECTIONS = document.querySelectorAll('section');
+
     SECTIONS.forEach((section) => {
       const FULL_SCREEN_BUTTON = section.querySelector('.fullscreen__button');
       let isButtonFullscreenClick = false;
