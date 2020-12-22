@@ -1,49 +1,75 @@
 /* Layout: contains all the CSS that handles the layout,
  such as the container and any grid systems. */
 
-.map {
-    width: 90%;
-    height: 90%;
+body {
+    @include background_pattern;
+    color: $color_ligth;
+}
+
+.main {
+    background-color: $color_primary_opacity;
+    max-width: 1200px;
     margin: 0 auto;
-    color: $color_primary;
-    img {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+section {
+    width: 50%;
+    min-width: 500px;
+    ;
+}
+
+.fullscreen__button {
+    margin: 3px;
+    background-color: $color_ligth;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    &__img {
         width: 20px;
         height: 20px;
     }
 }
 
-#legend {
-    font-family: Arial, sans-serif;
-    background: #fff;
-    padding: 10px;
-    margin: 10px;
-    border: 3px solid #000;
+.fullscreen__button:hover {
+    transition: 0.3s;
+    border-radius: 10px;
+    transform: scale(1.1);
+    &__img {
+        width: 20px;
+        height: 20px;
+    }
 }
 
-body {
-    background-color: #cccccc;
-    color: $color_ligth;
+.fullscreen__button:active {
+    transform: scale(0.9);
 }
 
-.main {
-    background-color: #5e5e5e;
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
+.fullscreenActive {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
 }
 
 .module-table {
-    min-width: 50%;
     height: 300px;
     background-color: $color_primary;
     &__table {
         margin: 10px auto;
-        width: 80%;
-        background-color: $color_orange;
+        width: 94%;
         border: 1px solid $color_ligth;
         &-thead {
-            background-color: $color_orange;
+            background-color: $color_secondary;
             &__figure {
                 margin: 5px auto;
                 &__icon {
@@ -78,25 +104,34 @@ body {
                     align-items: center;
                     text-align: center;
                     width: 25%;
+                    font-weight: bold;
                 }
                 img {
-                    width: 25px;
-                    height: 25px;
+                    width: 30px;
+                    height: 30px;
                     padding: 5px;
                     border-radius: 50%;
-                    border: 3px solid $color_primary;
-                    background-color: $color_ligth;
+                    background-color: $color_primary;
                 }
+            }
+            &__names-columns {
+                color: $color_ligth;
+            }
+            &__target-info {
+                color: $color_primary;
+                font-style: italic;
+                font-size: 18px;
             }
         }
         &-tbody {
-            background-color: $color_secondary;
+            background-color: $color_primary;
             display: block;
-            height: 120px;
+            height: 100px;
             overflow: auto;
             &__tr {
                 display: flex;
                 text-align: right;
+                border: 1px solid $color_primary;
                 cursor: pointer;
                 &__td-location,
                 &__td-infected,
@@ -109,9 +144,21 @@ body {
                     width: 25%;
                     padding: 2px;
                 }
+                &__td-location {
+                    color: $color_ligth;
+                }
+                &__td-infected {
+                    color: $color_yellow;
+                }
+                &__td-recovered {
+                    color: $color_green;
+                }
+                &__td-deaths {
+                    color: $color_orange;
+                }
             }
             &__tr:hover {
-                background-color: $color_orange;
+                border: 1px solid $color_ligth;
             }
         }
     }
@@ -121,12 +168,16 @@ body {
     }
     &__button {
         @include button;
-    }
-    &__button {
-        @include button;
-        &__img {
-            @include button__img;
+        &__reset__img {
+            @include button__img__reset;
         }
+        &__arrow__img {
+            @include button__img__arrow;
+        }
+    }
+    &__button__reset:hover {
+        transition: all 0.5s ease;
+        animation: rotate 1s linear infinite;
     }
     &__button:active {
         @include button-active;
@@ -134,18 +185,40 @@ body {
 }
 
 .module-list {
-    min-width: 50%;
-    background-color: $color_orange;
+    height: 300px;
+    background-color: $color_secondary;
 }
 
 .module-map {
-    min-width: 50%;
     height: 300px;
-    background-color: $color_yellow;
+    background-color: $color_orange;
 }
 
 .module-graph {
-    min-width: 50%;
     height: 300px;
     background-color: $color_ligth;
+}
+
+.map {
+    width: 90%;
+    height: 90%;
+    margin: 0 auto;
+    color: $color_primary;
+    img {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+#legend {
+    font-family: Arial, sans-serif;
+    background: #fff;
+    padding: 10px;
+    margin: 10px;
+    border: 3px solid #000;
+}
+
+body {
+    background-color: #cccccc;
+    color: $color_ligth;
 }

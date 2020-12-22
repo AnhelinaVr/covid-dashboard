@@ -3,6 +3,7 @@ your resets, variables, mixins, and any utility classes. */
 
 $color_primary:#272727;
 $color_secondary:#747474;
+$color_primary_opacity:#74747474;
 $color_orange:#FF652F;
 $color_yellow:#FFE400;
 $color_green:#14A76C;
@@ -40,6 +41,27 @@ html {
     transition: 0.3s;
     transform: scale(0.9);
     border: 0px;
+}
+
+@mixin button__img__arrow {
+    width: 20px;
+    height: 20px;
+}
+
+@mixin button__img__reset {
+    width: 30px;
+    height: 30px;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(-360deg);
+    }
+}
+
+@mixin background_pattern {
+    background-color: #272727;
+    background-image: url("../assets/covid.svg");
 }
 
 @mixin button__img {

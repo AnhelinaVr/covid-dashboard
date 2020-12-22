@@ -1,28 +1,51 @@
 /* Components: anything reusable such as buttons, navbars, cards etc. */
 
+
+/* ___________________________________________ Scroll bar*/
+
+
+/* width */
+
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 14px;
+    height: 14px;
 }
 
-
-/* Track */
-
- ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
 }
 
-
-/* Handle */
-
- ::-webkit-scrollbar-thumb {
-    background: rgb(179, 9, 9);
+::-webkit-scrollbar-thumb {
+    background: #ffe400;
+    border: 1px double #ffffff;
+    border-radius: 10px;
 }
 
+::-webkit-scrollbar-thumb:hover {
+    background: #14a76c;
+}
 
-/* Handle on hover */
+::-webkit-scrollbar-thumb:active {
+    background: #ff652f;
+}
 
- ::-webkit-scrollbar-thumb:hover {
-    background: #555;
+::-webkit-scrollbar-track {
+    background: #14a76c;
+    border: 1px solid #ffffff;
+    border-radius: 0px;
+}
+
+::-webkit-scrollbar-track:hover {
+    background: #ff652f;
+}
+
+::-webkit-scrollbar-track:active {
+    background: #ffe400;
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
 }
 
 .search-container {

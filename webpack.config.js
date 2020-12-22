@@ -29,48 +29,40 @@ module.exports = {
     },
     module: {
         rules: [{
-            test: /\.(sa|sc|c)ss$/,
-            use: [{
-                loader: MiniCssExtractPlugin.loader,
-                options: {
-                    hmr: isDev,
-                    reloadAll: true,
-                },
+                test: /\.(sa|sc|c)ss$/,
+                use: [{
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            hmr: isDev,
+                            reloadAll: true,
+                        },
+                    },
+                    'css-loader',
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            implementation: require('sass'),
+                        },
+                    },
+                ],
             },
-                'css-loader',
             {
-                loader: 'sass-loader',
+                test: /\.(png|jpe?g|gif|svg)$/i,
+                use: [{
+                    loader: 'file-loader',
+                    options: {
+                        name: '[path][name].[ext]',
+                    },
+                }],
+            },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader',
                 options: {
-                    implementation: require('sass'),
+                    presets: ['@babel/preset-env'],
                 },
             },
-            ],
-        },
-        {
-            test: /\.(png|jpe?g|gif|svg)$/i,
-            use: [{
-                loader: 'file-loader',
-                options: {
-                    name: '[path][name].[ext]',
-                },
-            }],
-        },
-        {
-            test: /\.js$/,
-            exclude: /node_modules/,
-            loader: 'babel-loader',
-            options: {
-                presets: ['@babel/preset-env'],
-            },
-        },
-        {
-            test: /\.html$/i,
-            loader: 'html-loader',
-            options: {
-              // Disables attributes processing
-              attributes: false,
-            },
-          },
         ],
     },
 };

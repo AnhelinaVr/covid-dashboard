@@ -1,9 +1,6 @@
 export default class Table {
-    constructor(parentSelector, className, funcCountryChange, data) {
-        const parent = document.querySelector(parentSelector);
-        this.el = document.createElement('table');
-        this.el.classList.add(className);
-        parent.appendChild(this.el);
+    constructor(el, funcCountryChange, data) {
+        this.el = document.querySelector(el);
         this.globalInfo = data.globalInfo;
         this.finalCountries = data.countriesInfo;
         this.categories = ['Total', 'New', 'Total / 100k', 'New / 100k'];
@@ -17,20 +14,20 @@ export default class Table {
         const ROW_INPUT = document.createElement('tr');
         ROW_INPUT.classList.add('module-table__table-thead__search-tabs-container');
         THEAD.appendChild(ROW_INPUT);
-        ROW_INPUT.innerHTML = `<button class="module-table__button" id="module-table__button__reset">
-                             <img class="module-table__button__img" src="/src/assets/icons/refresh.png" alt="Refresh">
+        ROW_INPUT.innerHTML = `<button class="module-table__button module-table__button__reset" id="module-table__button__reset">
+                             <img class="module-table__button__reset__img" src="/src/assets/icons/refresh.png" alt="Reset">
                            </button>
-                            <div class="search-container">
+                           <div class="search-container">
                               <input type="text" class="module-table__table-thead__search" id="module-table__table-search" placeholder="Search for a Country" placeholder="Search for a Country" />
                               <input class="button__kb__view" type="button" value="Show">
                             </div>
-                            <div class = "module-table__table-thead__search-tabs-container__tab">
+                           <div class = "module-table__table-thead__search-tabs-container__tab">
                              <button class="module-table__button" id="module-table__button__prev">
-                               <img class="module-table__button__img" src="/src/assets/icons/left-arrow.png" alt="Prev">
+                               <img class="module-table__button__arrow__img" src="/src/assets/icons/left-arrow.png" alt="Prev">
                              </button>
                              <div class="module-table__text-categories">Total</div>
                              <button class="module-table__button" id="module-table__button__next">
-                               <img class="module-table__button__img" src="/src/assets/icons/right-arrow.png" alt="Next">
+                               <img class="module-table__button__arrow__img" src="/src/assets/icons/right-arrow.png" alt="Next">
                              </button>
                            </div>`;
         const INPUT = document.getElementById('module-table__table-search');
@@ -49,10 +46,35 @@ export default class Table {
         }
         const ROW = document.createElement('tr');
         ROW.classList.add('module-table__table-thead__target-info');
-        ROW.innerHTML = `<td class="module-table__table-thead__target-info__td-location">Global(total)</td>
-                     <td class="module-table__table-thead__target-info__td-infected">${this.globalInfo.cases}</td>
-                     <td class="module-table__table-thead__target-info__td-recovered">${this.globalInfo.recovered}</td>
-                     <td class="module-table__table-thead__target-info__td-deaths">${this.globalInfo.deaths}</td>`;
+        let CASES = null;
+        let RECOVERED = null;
+        let DEATHS = null;
+        const POPULATION_100K = 100000;
+        if (this.indexCategory === 0) {
+            CASES = this.globalInfo.cases;
+            RECOVERED = this.globalInfo.recovered;
+            DEATHS = this.globalInfo.deaths;
+        } else if (this.indexCategory === 1) {
+            CASES = this.globalInfo.todayCases;
+            RECOVERED = this.globalInfo.todayRecovered;
+            DEATHS = this.globalInfo.todayDeaths;
+        } else if (this.indexCategory === 2) {
+            CASES = ((this.globalInfo.cases / this.globalInfo.population) * POPULATION_100K).toFixed(2);
+            RECOVERED = ((this.globalInfo.recovered / this.globalInfo.population) *
+                POPULATION_100K).toFixed(2);
+            DEATHS = ((this.globalInfo.deaths / this.globalInfo.population) * POPULATION_100K).toFixed(2);
+        } else if (this.indexCategory === 3) {
+            CASES = ((this.globalInfo.todayCases / this.globalInfo.population) *
+                POPULATION_100K).toFixed(2);
+            RECOVERED = ((this.globalInfo.todayRecovered / this.globalInfo.population) *
+                POPULATION_100K).toFixed(2);
+            DEATHS = ((this.globalInfo.todayDeaths / this.globalInfo.population) *
+                POPULATION_100K).toFixed(2);
+        }
+        ROW.innerHTML = `<td class="module-table__table-thead__target-info__td-location">Global</td>
+                     <td class="module-table__table-thead__target-info__td-infected">${CASES}</td>
+                     <td class="module-table__table-thead__target-info__td-recovered">${RECOVERED}</td>
+                     <td class="module-table__table-thead__target-info__td-deaths">${DEATHS}</td>`;
         THEAD.appendChild(ROW);
     }
 
@@ -84,7 +106,6 @@ export default class Table {
                 const DATA_COUNTRY = this.finalCountries.find((obj) => LOCATION === obj.country);
                 INPUT.value = DATA_COUNTRY.country;
                 this.searchTerm = INPUT.value;
-                /* this.showCountries(this.categories[this.indexCategory]); */
                 this.countryTarget(DATA_COUNTRY);
             });
         });
@@ -142,6 +163,7 @@ export default class Table {
 
     sortDataCountries() {
         this.finalCountries = this.finalCountries.sort((a, b) => b.cases - a.cases);
+        return this.finalCountries.length;
     }
 
     async showCountries(param) {
