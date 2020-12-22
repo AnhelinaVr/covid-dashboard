@@ -31,10 +31,15 @@ export default class App {
       this.moduleChart = new Chart(`${target.textContent.toLowerCase()}`);
       this.moduleChart.init();
     });
+<<<<<<< Updated upstream
     this.moduleList = new List(this.data, this.setCountry.bind(this));
     this.moduleList.showCountries();
     this.moduleList.events();
 
+=======
+    this.resetToGlobalButton = document.querySelector('.resetToGlobalButton');
+    this.resetToGlobalButton.addEventListener('click',(event) => {this.moduleChart = new Chart('cases'); this.moduleChart.init()});
+>>>>>>> Stashed changes
   }
 
   /* в свою таблицу передаю функцию которая вызывается когда страна меняется */
@@ -43,5 +48,8 @@ export default class App {
     this.country = country;
     this.moduleMap.setCountry(country.latlng);
     this.moduleTable.showDataTargetCountry(country.country);
+    this.moduleChart = new Chart('cases');
+    this.moduleChart.setCountry = country;
+    this.moduleChart.init();
   }
 }
