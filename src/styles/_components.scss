@@ -1,38 +1,374 @@
 /* Components: anything reusable such as buttons, navbars, cards etc. */
 
+
 /* ___________________________________________ Scroll bar*/
 
+
 /* width */
+
 ::-webkit-scrollbar {
-  width: 14px;
-  height: 14px;
+    width: 14px;
+    height: 14px;
 }
+
 ::-webkit-scrollbar-button {
-  width: 0px;
-  height: 0px;
+    width: 0px;
+    height: 0px;
 }
+
 ::-webkit-scrollbar-thumb {
-  background: #ffe400;
-  border: 1px double #ffffff;
-  border-radius: 10px;
+    background: #ffe400;
+    border: 1px double #ffffff;
+    border-radius: 10px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-  background: #14a76c;
+    background: #14a76c;
 }
+
 ::-webkit-scrollbar-thumb:active {
-  background: #ff652f;
+    background: #ff652f;
 }
+
 ::-webkit-scrollbar-track {
-  background: #14a76c;
-  border: 1px solid #ffffff;
-  border-radius: 0px;
+    background: #14a76c;
+    border: 1px solid #ffffff;
+    border-radius: 0px;
 }
+
 ::-webkit-scrollbar-track:hover {
-  background: #ff652f;
+    background: #ff652f;
 }
+
 ::-webkit-scrollbar-track:active {
-  background: #ffe400;
+    background: #ffe400;
 }
+
 ::-webkit-scrollbar-corner {
-  background: transparent;
+    background: transparent;
+}
+
+.search-container {
+    display: flex;
+    width: 490px;
+    #search {
+        flex-basis: 90%;
+    }
+    .button__kb__view {
+        flex-basis: 10%;
+        @include button;
+    }
+}
+
+.keyboard-wrapper {
+    display: flex;
+    height: 400px;
+    align-items: center;
+    flex-direction: column;
+    .textarea {
+        font-size: 16px;
+        display: block;
+        margin: 20px 10px;
+        padding: 5px;
+        height: 128px;
+        width: 490px;
+        resize: none;
+        border: solid 1px black;
+        background-color: #efefef;
+    }
+    .buttons__container button {
+        margin: 5px;
+        padding: 5px;
+        font-size: 1.4rem;
+        background-color: #4889B2;
+        width: 75px;
+        border: 1px solid #ffffff;
+        border-radius: 5px;
+        color: #ffffff;
+    }
+    .buttons__container button:hover {
+        transition: 0.5s;
+        -webkit-box-shadow: 0px 0px 5px 1px #FFFFFF;
+        box-shadow: 0px 0px 5px 1px #FFFFFF;
+    }
+    .buttons__container button:active {
+        transform: scale(0.9);
+        transition: 0.1s;
+    }
+    .info {
+        color: #ffffff;
+        font-size: 1.6rem;
+    }
+    .on {
+        background-color: orange !important;
+    }
+    .caps_indicator {
+        float: right;
+        margin: 0 40px 10px 0;
+        width: 10px;
+        height: 10px;
+        background-color: #ffffff;
+        border: 1px solid #000000;
+        border-radius: 50%;
+    }
+    .keyboard_container {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        padding: 15px;
+        bottom: -100%;
+        width: 800px;
+        background-color: $color_primary;
+        transition: 1s;
+    }
+    .keyboard_keys {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem 1rem;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+    .key {
+        padding: 0 2px;
+        min-width: 3.5rem;
+        min-height: 3rem;
+        font-size: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        border: 2px solid #4889B2;
+        border-radius: 5px;
+        color: #ffffff;
+    }
+    .key span {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+    .key span div {
+        color: orange;
+        font-size: 12px;
+        align-self: flex-start;
+        padding-left: 5px;
+        padding-top: 3px;
+    }
+    .key_active {
+        background-color: #4889B2;
+        box-shadow: 0 1px black;
+        transition: 0.1s ease-in-out;
+        transform: translateY(2px);
+    }
+    .key_pressed {
+        background-color: #4889B2;
+        box-shadow: 0 1px black;
+        transition: 0.1s ease-in-out;
+        transform: translateY(2px);
+    }
+    #Backspace {
+        width: 10rem;
+        font-weight: bold;
+        font-size: 2.4rem;
+    }
+    #Delete {
+        width: 11.5rem;
+        font-weight: bold;
+        font-size: 2.4rem;
+    }
+    #Tab {
+        width: 5rem;
+        font-weight: bold;
+    }
+    #CapsLock {
+        width: 6rem;
+        font-weight: bold;
+        font-size: 2.4rem;
+    }
+    #Enter {
+        width: 9rem;
+        font-weight: bold;
+        font-size: 2.4rem;
+    }
+    #ShiftLeft {
+        width: 10rem;
+        font-weight: bold;
+    }
+    #ShiftRight {
+        width: 9.5rem;
+        font-weight: bold;
+    }
+    #ControlLeft,
+    #ControlRight {
+        width: 6rem;
+        font-weight: bold;
+    }
+    #AltLeft,
+    #AltRight {
+        width: 4rem;
+        font-weight: bold;
+    }
+    #MetaLeft {
+        width: 5rem;
+        font-weight: bold;
+    }
+    #Lang {
+        width: 5rem;
+        font-weight: bold;
+    }
+    #Microphone {
+        width: 5rem;
+        font-size: 2.4rem;
+    }
+    #Space {
+        width: 14.5rem;
+        font-weight: bold;
+    }
+    #Space,
+    #ShiftLeft,
+    #ControlLeft,
+    #ControlRight,
+    #Tab {
+        justify-self: stretch;
+    }
+    #ArrowLeft,
+    #Backquote {
+        justify-self: end;
+    }
+    #ArrowRight {
+        justify-self: start;
+    }
+}
+
+@media (max-width: 767px) {
+    .main {
+        max-width: 500px;
+        margin: 0 auto;
+        height: 100vh;
+    }
+    .textarea {
+        font-size: 14px;
+    }
+    .keyboard_container {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        padding: 15px;
+        width: 500px;
+        background-color: #184668;
+    }
+    .keyboard_keys {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 0.5rem;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    .key {
+        padding: 0 2px;
+        min-width: 2.8rem;
+        min-height: 2rem;
+        font-size: 1.4rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        border: 2px solid #4889B2;
+        border-radius: 5px;
+        color: #ffffff;
+    }
+    .key span {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .key span div {
+        color: orange;
+        font-size: 10px;
+        align-self: flex-start;
+        padding-left: 3px;
+        padding-top: 3px;
+    }
+    .key-special {
+        background-color: #dbd8d8;
+    }
+    #Backspace {
+        width: 3.4rem;
+        font-weight: bold;
+        font-size: 1.4rem;
+    }
+    #Delete {
+        width: 4.1rem;
+        font-weight: bold;
+        font-size: 1.4rem;
+    }
+    #Tab {
+        width: 3.5rem;
+        font-weight: normal;
+        font-size: 1.4rem;
+    }
+    #CapsLock {
+        width: 4rem;
+        font-weight: bold;
+        font-size: 1.4rem;
+    }
+    #Enter {
+        width: 2.9rem;
+        font-weight: bold;
+        font-size: 1.4rem;
+    }
+    #ShiftLeft {
+        width: 5.1rem;
+        font-weight: normal;
+        font-size: 1.4rem;
+    }
+    #ShiftRight {
+        width: 5.1rem;
+        font-weight: normal;
+        font-size: 1.4rem;
+    }
+    #ControlLeft,
+    #ControlRight {
+        width: 5rem;
+        font-weight: normal;
+    }
+    #AltLeft,
+    #AltRight {
+        width: 3rem;
+        font-weight: normal;
+    }
+    #MetaLeft {
+        width: 4rem;
+        font-weight: normal;
+    }
+    #Lang {
+        width: 3rem;
+        font-weight: bold;
+        font-size: 1.4rem;
+    }
+    #Microphone {
+        width: 1.5rem;
+        font-size: 1.4rem;
+    }
+    #Space {
+        width: 7.8rem;
+        font-weight: bold;
+    }
+    #Space,
+    #ShiftLeft,
+    #ControlLeft,
+    #ControlRight,
+    #Tab {
+        justify-self: stretch;
+    }
+    #ArrowLeft,
+    #Backquote {
+        justify-self: end;
+    }
+    #ArrowRight {
+        justify-self: start;
+    }
 }

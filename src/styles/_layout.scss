@@ -2,220 +2,223 @@
  such as the container and any grid systems. */
 
 body {
-  @include background_pattern;
-  color: $color_ligth;
+    @include background_pattern;
+    color: $color_ligth;
 }
 
-.main{
-  background-color: $color_primary_opacity;
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
-section{
-  width: 50%;
-  min-width: 500px;;
+.main {
+    background-color: $color_primary_opacity;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 
-.fullscreen__button{
-  margin: 3px;
-  background-color: $color_ligth;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30px;
-  height: 30px;
-  border: none;
-  outline: none;
-  cursor: pointer;
-
-  &__img{
-    width: 20px;
-    height: 20px;
-  }
+section {
+    width: 50%;
+    min-width: 500px;
+    ;
 }
 
-.fullscreen__button:hover{
-  transition: 0.3s;
-  border-radius: 10px;
-  transform: scale(1.1);
-
-  &__img{
-    width: 20px;
-    height: 20px;
-  }
+.fullscreen__button {
+    margin: 3px;
+    background-color: $color_ligth;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    &__img {
+        width: 20px;
+        height: 20px;
+    }
 }
-.fullscreen__button:active{
-  transform: scale(0.9);
+
+.fullscreen__button:hover {
+    transition: 0.3s;
+    border-radius: 10px;
+    transform: scale(1.1);
+    &__img {
+        width: 20px;
+        height: 20px;
+    }
 }
 
-.fullscreenActive{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  min-height: 100%;
+.fullscreen__button:active {
+    transform: scale(0.9);
+}
+
+.fullscreenActive {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
 }
 
 .module-table {
-  height: 300px;
-  background-color: $color_primary;
-
-  &__table {
-    margin: 10px auto;
-    width: 94%;
-    border: 1px solid $color_ligth;
-
-    &-thead{
-      background-color: $color_secondary;
-
-      &__figure{
-        margin:5px auto;
-
-        &__icon{
-          max-width: 40px;
-        }
-      }
-
-      &__search{
-          max-width: 140px;
-      }
-
-      &__search-tabs-container{
-          display: flex;
-          justify-content: center;
-          align-items: center;
-
-          &__tab{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-      }
-
-      &__names-columns, &__target-info {
-          display: flex;
-          text-align: center;
-          font-weight: bold;
-
-          &__td-location, &__td-infected, &__td-recovered, &__td-deaths{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            width: 25%;
-            font-weight: bold;
-          }
-
-          img{
-              width: 30px;
-              height: 30px;
-              padding: 5px;
-              border-radius: 50%;
-              background-color: $color_primary;
-          }
-      }
-
-      &__names-columns {
-        color: $color_ligth;
-      }
-
-      &__target-info {
-        color: $color_primary;
-        font-style: italic;
-        font-size: 18px;
-      }
-    }
-
-
-    &-tbody{
-        background-color: $color_primary;
-        display: block;
-        height: 100px;
-        overflow: auto;
-
-        &__tr{
-            display: flex;
-            text-align: right;
-            border:1px solid $color_primary;
-            cursor: pointer;
-
-            &__td-location, &__td-infected, &__td-recovered, &__td-deaths{
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              text-align: center;
-              width: 25%;
-              padding: 2px;
+    height: 300px;
+    background-color: $color_primary;
+    &__table {
+        margin: 10px auto;
+        width: 94%;
+        border: 1px solid $color_ligth;
+        &-thead {
+            background-color: $color_secondary;
+            &__figure {
+                margin: 5px auto;
+                &__icon {
+                    max-width: 40px;
+                }
             }
-
-            &__td-location{
-              color:$color_ligth;
+            &__search {
+                max-width: 140px;
             }
-
-            &__td-infected{
-              color:$color_yellow;
+            &__search-tabs-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                &__tab {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
             }
-
-            &__td-recovered{
-              color:$color_green;
+            &__names-columns,
+            &__target-info {
+                display: flex;
+                text-align: center;
+                font-weight: bold;
+                &__td-location,
+                &__td-infected,
+                &__td-recovered,
+                &__td-deaths {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    text-align: center;
+                    width: 25%;
+                    font-weight: bold;
+                }
+                img {
+                    width: 30px;
+                    height: 30px;
+                    padding: 5px;
+                    border-radius: 50%;
+                    background-color: $color_primary;
+                }
             }
-
-            &__td-deaths{
-              color:$color_orange;
+            &__names-columns {
+                color: $color_ligth;
+            }
+            &__target-info {
+                color: $color_primary;
+                font-style: italic;
+                font-size: 18px;
             }
         }
-
-        &__tr:hover{
-            border:1px solid $color_ligth;
+        &-tbody {
+            background-color: $color_primary;
+            display: block;
+            height: 100px;
+            overflow: auto;
+            &__tr {
+                display: flex;
+                text-align: right;
+                border: 1px solid $color_primary;
+                cursor: pointer;
+                &__td-location,
+                &__td-infected,
+                &__td-recovered,
+                &__td-deaths {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    text-align: center;
+                    width: 25%;
+                    padding: 2px;
+                }
+                &__td-location {
+                    color: $color_ligth;
+                }
+                &__td-infected {
+                    color: $color_yellow;
+                }
+                &__td-recovered {
+                    color: $color_green;
+                }
+                &__td-deaths {
+                    color: $color_orange;
+                }
+            }
+            &__tr:hover {
+                border: 1px solid $color_ligth;
+            }
         }
     }
-  }
-
-  &__text-categories{
-      width: 100px;
-      text-align: center;
-  }
-
-  &__button {
-      @include button;
-
-      &__reset__img {
-        @include button__img__reset;
-      }
-
-      &__arrow__img {
-        @include button__img__arrow;
-      }
-  }
-
-  &__button__reset:hover{
-    transition: all 0.5s ease;
-    animation: rotate 1s linear infinite;
-  }
-
-  &__button:active {
-    @include button-active;
-  }
+    &__text-categories {
+        width: 100px;
+        text-align: center;
+    }
+    &__button {
+        @include button;
+        &__reset__img {
+            @include button__img__reset;
+        }
+        &__arrow__img {
+            @include button__img__arrow;
+        }
+    }
+    &__button__reset:hover {
+        transition: all 0.5s ease;
+        animation: rotate 1s linear infinite;
+    }
+    &__button:active {
+        @include button-active;
+    }
 }
 
-.module-list{
-  height: 300px;
-  background-color: $color_secondary;
+.module-list {
+    height: 300px;
+    background-color: $color_secondary;
 }
 
-.module-map{
-
-  height: 300px;
-  background-color: $color_orange;
+.module-map {
+    height: 300px;
+    background-color: $color_orange;
 }
 
-.module-graph{
-  height: 300px;
-  background-color: $color_ligth;
+.module-graph {
+    height: 300px;
+    background-color: $color_ligth;
 }
 
+.map {
+    width: 90%;
+    height: 90%;
+    margin: 0 auto;
+    color: $color_primary;
+    img {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+#legend {
+    font-family: Arial, sans-serif;
+    background: #fff;
+    padding: 10px;
+    margin: 10px;
+    border: 3px solid #000;
+}
+
+body {
+    background-color: #cccccc;
+    color: $color_ligth;
+}
