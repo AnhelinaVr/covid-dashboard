@@ -1,4 +1,3 @@
-import Table from './Table';
 import CovidMap from './map';
 import Chart from './chart-4';
 import List from './list.modules';
@@ -7,7 +6,7 @@ import getData from './getCountriesInfo';
 export default class App {
     constructor() {
         this.data = null;
-        this.country = { Country: 'Brazil', TotalConfirmed: 7110434 };
+        this.country = null;
     }
 
     async getDatas() {
@@ -15,7 +14,7 @@ export default class App {
     }
 
     whendataready() {
-        this.moduleTable = new Table('.module-table', 'module-table__table',
+        this.moduleTable = new Table('table',
             this.setCountry.bind(this), this.data);
         this.moduleTable.addTheadandTbody();
         this.moduleTable.showCountries('Total');
@@ -32,8 +31,11 @@ export default class App {
         this.moduleList.showCountries();
         this.moduleList.events();
         this.resetToGlobalButton = document.querySelector('.resetToGlobalButton');
-        this.resetToGlobalButton.addEventListener('click', (event) => { this.moduleChart = new Chart('cases');
-            this.moduleChart.init() });
+        this.resetToGlobalButton.addEventListener('click', (event) => {
+            this.moduleChart = new Chart('cases');
+            this.moduleChart.init()
+        });
+        this.addEventListenerForButtonFullscreenClick();
     }
 
     /* в свою таблицу передаю функцию которая вызывается когда страна меняется */
@@ -45,5 +47,25 @@ export default class App {
         this.moduleChart = new Chart('cases');
         this.moduleChart.setCountry = country.countryCode;
         this.moduleChart.init();
+    }
+    addEventListenerForButtonFullscreenClick() {
+        const SECTIONS = document.querySelectorAll('section');
+        SECTIONS.forEach((section) => {
+            const FULL_SCREEN_BUTTON = section.querySelector('.fullscreen__button');
+            let isButtonFullscreenClick = false;
+            FULL_SCREEN_BUTTON.addEventListener('click', () => {
+                const buttonImg = FULL_SCREEN_BUTTON.querySelector('img');
+                if (!isButtonFullscreenClick) {
+                    section.classList.add('fullscreenActive');
+                    isButtonFullscreenClick = true;
+                    buttonImg.src = '/src/assets/icons/minimize.png';
+                } else {
+                    section.classList.remove('fullscreenActive');
+                    isButtonFullscreenClick = false;
+                    buttonImg.src = '/src/assets/icons/fullscreen.png';
+                }
+            });
+        });
+        console.log(this.country);
     }
 }
