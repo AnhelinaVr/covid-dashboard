@@ -29,13 +29,23 @@ export default class App {
     this.moduleList.showCountries();
     this.moduleList.events();
     // chart module
-    this.moduleChart = new Chart();
+    this.moduleChart = new Chart('cases');
     this.moduleChart.init();
+    this.chartButtons = document.querySelector('.graphButtons');
+    this.chartButtons.addEventListener('click', ({ target }) => {
+      this.moduleChart = new Chart(`${target.textContent.toLowerCase()}`);
+      this.moduleChart.init();
+    });
+    this.moduleList = new List(this.data, this.setCountry.bind(this));
+    this.moduleList.showCountries();
+    this.moduleList.events();
+
     this.resetToGlobalButton = document.querySelector('.resetToGlobalButton');
     this.resetToGlobalButton.addEventListener('click', () => {
       this.moduleChart = new Chart('cases');
       this.moduleChart.init();
     });
+
     this.addEventListenerForButtonFullscreenClick();
   }
 
