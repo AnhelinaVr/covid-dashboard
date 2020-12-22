@@ -63,6 +63,14 @@ module.exports = {
                     presets: ['@babel/preset-env'],
                 },
             },
+            {
+                test: /\.html$/i,
+                loader: 'html-loader',
+                options: {
+                    // Disables attributes processing
+                    attributes: false,
+                },
+            },
         ],
     },
 };
