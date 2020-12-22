@@ -19,12 +19,12 @@ function renderPopup(data) {
 }
 
 export default class CovidMap {
-  constructor(mapContainer, legend, buttonsContainer, funcCountryChange, data) {
-    this.mapContainer = mapContainer;
+  constructor(buttonsContainer, funcCountryChange, data) {
+    this.mapContainer = document.querySelector('#map');
+    this.legend = document.querySelector('#legend');
     this.map = this.initMap();
     this.markers = [];
     this.popup = new window.google.maps.InfoWindow();
-    this.legend = legend;
     this.map.controls[window.google.maps.ControlPosition.RIGHT_BOTTOM]
       .push(this.legend);
     this.countryTarget = funcCountryChange;

@@ -7,7 +7,7 @@ import getData from './getCountriesInfo';
 export default class App {
   constructor() {
     this.data = null;
-    this.country = null;
+    this.country = { Country: 'Brazil', TotalConfirmed: 7110434 };
   }
 
   async getDatas() {
@@ -15,22 +15,24 @@ export default class App {
   }
 
   whendataready() {
+    // table module
     this.moduleTable = new Table('table',
       this.setCountry.bind(this), this.data);
     this.moduleTable.addTheadandTbody();
     this.moduleTable.showCountries('Total');
-    this.moduleMap = new CovidMap(document.querySelector('#map'),
-      document.querySelector('#legend'),
-      document.querySelector('.map-tabs'),
+    // map module
+    this.moduleMap = new CovidMap(document.querySelector('.map-tabs'),
       this.setCountry.bind(this), this.data);
     this.moduleMap.renderData('cases');
+    //  list module
+    this.moduleList = new List(this.data, this.setCountry.bind(this));
+    this.moduleList.showCountries();
+    this.moduleList.events();
+    // chart module
     this.moduleChart = new Chart();
     this.moduleChart.init();
     this.moduleChart.setParam = document.querySelector('.slide--active')
       .textContent.toLowerCase();
-    this.moduleList = new List(this.data, this.setCountry.bind(this));
-    this.moduleList.showCountries();
-    this.moduleList.events();
     this.resetToGlobalButton = document.querySelector('.resetToGlobalButton');
     this.resetToGlobalButton.addEventListener('click', () => {
       this.moduleChart = new Chart('cases');
