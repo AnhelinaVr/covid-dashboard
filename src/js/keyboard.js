@@ -188,6 +188,9 @@ function getInput() {
         });
     });
     const buttons = document.querySelectorAll('input[type="button"]');
+    buttons.forEach((button) => {
+        button.addEventListener('click', showKeyboard);
+    });
     console.log(inputs);
     console.log(buttons);
     return currentInput
@@ -409,26 +412,27 @@ window.addEventListener('load', () => {
 });
 
 let isKBShow = false;
+
+function showKeyboard() {
+    const keyboardWindow = document.querySelector('.keyboard_container');
+    if (isKBShow) {
+        isKBShow = false;
+        open.textContent = 'Show KB';
+        keyboardWindow.style.bottom = '-150%';
+    } else {
+        isKBShow = true;
+        open.textContent = 'Hide KB';
+        keyboardWindow.style.bottom = '0';
+    }
+}
+
 window.addEventListener('load', () => {
     const open = document.querySelector('.button__kb__view');
     const sound = document.querySelector('.button__sound');
-    const keyboardWindow = document.querySelector('.keyboard_container');
+
 
     // When the user clicks on button, close the modal
     open.addEventListener('click', showKeyboard);
-
-    function showKeyboard() {
-        if (isKBShow) {
-            isKBShow = false;
-            open.textContent = 'Show KB';
-            keyboardWindow.style.bottom = '-150%';
-        } else {
-            isKBShow = true;
-            open.textContent = 'Hide KB';
-            keyboardWindow.style.bottom = '0';
-        }
-    }
-
     sound.addEventListener('click', () => {
         if (isSoundOn) {
             isSoundOn = false;
