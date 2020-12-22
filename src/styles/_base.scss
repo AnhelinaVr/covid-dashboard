@@ -7,6 +7,11 @@ $color_orange:#FF652F;
 $color_yellow:#FFE400;
 $color_green:#14A76C;
 $color_ligth:#FFFFFF;
+body,
+html {
+    font-size: 10px;
+}
+
 @mixin p {
     font: {
         size: 16px;
