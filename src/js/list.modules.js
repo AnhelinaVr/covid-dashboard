@@ -79,7 +79,6 @@ export default class List {
     let casesOnPopalaton = 'TotalConfirmed';
 
     searchInput.addEventListener('input', (e) => {
-      console.log(e);
       searchTerm = e.target.value;
       this.showCountries(currentParam, casesOnPopalaton, searchTerm);
     });
