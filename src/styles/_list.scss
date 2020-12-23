@@ -1,46 +1,77 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,500&display=swap");
+
 * {
     box-sizing: border-box;
+    
+    font-family: "Roboto", sans-serif;
+}
+.module-list{
+
+    width: 50%;
+    height: 300px;
+
+    &--full-screen {
+        
+    transition: 0.1s cubic-bezier(0.8, 0.5, 0.2, 0.4);
+    transition-duration: 500ms;
+        position: absolute;
+        z-index: 10;
+        height: 100vh;
+        width: 100vw;
+        left: 0;
+        top: 0;
+    }
+
+}
+.stat-title {
+    color: $color_orange;
+    font-size: 24px;
 }
 
 #results {
     overflow: hidden;
+    width: 100%;
 }
 
-.list-module {
-    background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+.module-wrapper {
+    position: relative;
+    background-color: $color_primary;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
     height: 100%;
     font-family: "Roboto", sans-serif;
-    margin: 0 0 50px;
+    // margin: 0 0 50px;    
     // padding-top: 50px;
 }
 
 input {
     font-family: "Roboto", sans-serif;
+    
     border-radius: 3px;
-    border: 1px solid #ddd;
+    border: 1px solid #747474;
     outline: none;
     padding: 15px;
-    width: 480px;
+    width: 90%;
 }
 
 .countries {
     padding: 10px;
     overflow: auto;
-    height: 80%;
+    height: 100%;
     list-style-type: none;
-    width: 480px;
+    margin: 0 auto;
+    width: 90%;
     transition: 0.5s;
 }
 
 .country-item {
-    background-color: #fff;
+    color: #23CB91;
+    background-color:$color_primary;
     border-radius: 3px;
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+    border: solid 1px #595959;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -48,14 +79,16 @@ input {
     margin: 10px 0;
     transition: 0.5s;
     &:hover {
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+        
+    box-shadow: 0 2px 8px #23CB9140;
+    background-color: #363636;
         transition: 0.5s;
     }
     &__flag {
         width: 40px;
     }
     &__name {
-        color: $color_primary;
+        // color: #595959;
         flex: 2;
         font-weight: normal;
         letter-spacing: 0.5px;
@@ -64,7 +97,7 @@ input {
     }
     &__info {
         border-left: 1px solid #aaa;
-        color: #777;
+        // color: #777;
         padding: 0 15px;
         flex: 1;
     }
@@ -72,7 +105,7 @@ input {
         font-weight: 300;
         letter-spacing: 1px;
         margin: 0;
-        margin-bottom: 12px;
+        // margin-bottom: 12px;
     }
     &--text {
         font-weight: 300;

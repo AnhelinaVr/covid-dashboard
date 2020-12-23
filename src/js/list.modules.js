@@ -1,3 +1,12 @@
+const psramsObj = {
+  cases: 'Total Confirmed',
+  deaths: 'Total Deaths',
+  recovered: 'Total Recovered',
+  todayCases: 'New Confirmed',
+  todayDeaths: 'New Deaths',
+  todayRecovered: 'New Recovered',
+};
+
 function numberWithCommas(cases) {
   return cases
     .toFixed()
@@ -18,24 +27,25 @@ function showFlag(country, id) {
 function getParams(data, casesOnPopalaton, filterParam, country, id) {
   const countryInfo = document.createElement('div');
   const countryPopulation = document.createElement('h2');
-  const countryPopulationText = document.createElement('h5');
+
+  const params = document.querySelector('.stat-title');
   const li = document.querySelector(`#${id}`);
 
-  let nameParam = filterParam.split(/(?=[A-Z])/).join(' ');
+  let nameParamText = psramsObj[`${filterParam}`];
+
   if (casesOnPopalaton) {
     countryPopulation.innerText = numberWithCommas((data / country.population) * 100000);
-    nameParam += ' on 100k';
+    nameParamText += ' on 100k';
   } else {
     countryPopulation.innerText = numberWithCommas(data);
   }
+
+  params.innerText = nameParamText;
+
   countryPopulation.classList.add('country-item__population');
   countryInfo.classList.add('country-item__info');
 
-  countryPopulationText.innerText = nameParam;
-  countryPopulationText.classList.add('country-item__population--text');
-
   countryInfo.appendChild(countryPopulation);
-  countryInfo.appendChild(countryPopulationText);
   li.appendChild(countryInfo);
 }
 export default class List {
@@ -74,9 +84,10 @@ export default class List {
   events() {
     const searchInput = document.getElementById('search');
     const buttonsTotal = document.querySelector('.buttonsTotal');
+    const fullScreenBtn = document.querySelectorAll('.fullScreen-btn');
     let searchTerm = '';
     let currentParam = 'cases';
-    let casesOnPopalaton = 'TotalConfirmed';
+    let casesOnPopalaton = false;
 
     searchInput.addEventListener('input', (e) => {
       searchTerm = e.target.value;
@@ -87,6 +98,16 @@ export default class List {
       currentParam = event.target.id;
       casesOnPopalaton = event.target.getAttribute('population');
       this.showCountries(currentParam, casesOnPopalaton);
+    });
+
+    fullScreenBtn.forEach((element) => {
+      element.addEventListener('click', (event) => {
+        if (event.target.classList.contains('fullScreen-btn')) {
+          console.log(1);
+        }
+        event.preventDefault();
+        event.target.closest('#section').classList.toggle('module--full-screen');
+      });
     });
   }
 
@@ -113,7 +134,7 @@ export default class List {
         if (casesOnPopalaton) {
           return (
             ((a[`${paramToFilter}`] / a.population) * this.on100KCases).toFixed()
-                        - ((b[`${paramToFilter}`] / b.population) * this.on100KCases).toFixed()
+            - ((b[`${paramToFilter}`] / b.population) * this.on100KCases).toFixed()
           );
         }
         return a[`${paramToFilter}`] - b[`${paramToFilter}`];

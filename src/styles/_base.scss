@@ -10,7 +10,7 @@ $color_green:#14A76C;
 $color_ligth:#FFFFFF;
 body,
 html {
-    font-size: 10px;
+    // font-size: 10px;
 }
 
 @mixin p {
@@ -28,7 +28,7 @@ html {
     cursor: pointer;
     transition: 0.3s;
     border: 0px;
-    background-color: transparent;
+    // background-color: transparent;
     outline: none;
 }
 
