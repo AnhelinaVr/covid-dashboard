@@ -1,6 +1,6 @@
 import { CovidMap } from './map';
 import Chart from './chart-4';
-import List from './list.modules';
+import { List } from './list.modules';
 import Table from './Table';
 import getData from './getCountriesInfo';
 

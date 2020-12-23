@@ -7,7 +7,7 @@ const psramsObj = {
   todayRecovered: 'New Recovered',
 };
 
-function numberWithCommas(cases) {
+export function numberWithCommas(cases) {
   return cases
     .toFixed()
     .toString()
@@ -48,7 +48,7 @@ function getParams(data, casesOnPopalaton, filterParam, country, id) {
   countryInfo.appendChild(countryPopulation);
   li.appendChild(countryInfo);
 }
-export default class List {
+export class List {
   constructor(data, funcCountryChange) {
     this.searchInput = document.getElementById('search');
     this.results = document.getElementById('results');
@@ -102,9 +102,6 @@ export default class List {
 
     fullScreenBtn.forEach((element) => {
       element.addEventListener('click', (event) => {
-        if (event.target.classList.contains('fullScreen-btn')) {
-          console.log(1);
-        }
         event.preventDefault();
         event.target.closest('.section').classList.toggle('module--full-screen');
         document.body.classList.toggle('fullScreen-body');
