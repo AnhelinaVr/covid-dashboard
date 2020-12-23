@@ -1,4 +1,4 @@
-/* Base: contained within this file are all
+/* Base: contained within this file are all 
 your resets, variables, mixins, and any utility classes. */
 
 $color_primary:#272727;
@@ -9,7 +9,6 @@ $color_yellow:#FFE400;
 $color_green:#14A76C;
 $color_green--ligth:#23CB91;
 $color_ligth:#FFFFFF;
-
 body,
 html {
     @media (max-width: 1500px) {
@@ -24,7 +23,6 @@ html {
         style: normal;
         weight: normal;
     }
-
     line-height: 130%;
 }
 
@@ -34,6 +32,7 @@ html {
     transition: 0.3s;
     border: 0px;
     outline: none;
+    background: transparent;
 }
 
 @mixin button-hover {
@@ -73,7 +72,6 @@ html {
     height: 20px;
     page-break-after: 5px;
 }
-
 
 .button {
     font-size: 14px;

@@ -1,4 +1,4 @@
-import CovidMap from './map';
+import { CovidMap } from './map';
 import Chart from './chart-4';
 import List from './list.modules';
 import Table from './Table';
@@ -45,6 +45,7 @@ export default class App {
     });
 
     this.buttonsListner();
+    this.addEventListenerForModal();
   }
 
   /* в свою таблицу передаю функцию которая вызывается когда страна меняется */
@@ -73,5 +74,43 @@ export default class App {
         graphButtons.firstElementChild.classList.add('button--active');
       }
     });
+  }
+
+  addEventListenerForModal() {
+    const BODY = document.querySelector('body');
+    const MODAL = document.getElementById('modal-container__box');
+    const BUTTON = document.getElementById('modal-container__button-open');
+    const SPAN = document.getElementsByClassName('close')[0];
+    BUTTON.onclick = () => {
+      MODAL.style.display = 'block';
+      BODY.style.position = 'fixed';
+    };
+    SPAN.onclick = () => {
+      MODAL.style.display = 'none';
+      BODY.style.position = 'static';
+    };
+    window.onclick = (event) => {
+      if (event.target === MODAL) {
+        MODAL.style.display = 'none';
+        BODY.style.position = 'static';
+      }
+    };
+
+    const TAB_LINKS = document.querySelectorAll('.modal-container__tabs-list a');
+    const TAB_PANELS = document.querySelectorAll('.modal-container__tabs-content__panel');
+
+    TAB_LINKS.forEach((el) => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelector('.modal-container__tabs-list li.tab-active').classList.remove('tab-active');
+        document.querySelector('.modal-container__tabs-content__panel.tab-active').classList.remove('tab-active');
+        const PARENT_LIST_ITEM = el.parentElement;
+        PARENT_LIST_ITEM.classList.add('tab-active');
+        const INDEX = [...PARENT_LIST_ITEM.parentElement.children].indexOf(PARENT_LIST_ITEM);
+        const PANEL = [...TAB_PANELS].filter((element) => element.getAttribute('data-index') === String(INDEX));
+        PANEL[0].classList.add('tab-active');
+      });
+    });
+    console.log(this.country);
   }
 }

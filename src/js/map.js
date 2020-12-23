@@ -2,7 +2,7 @@
 
 import mapStyle from './map-style';
 
-function getPercentage(current, general) {
+export function getPercentage(current, general) {
   return (current * 100) / general || 0;
 }
 
@@ -18,7 +18,7 @@ function renderPopup(data) {
       `);
 }
 
-export default class CovidMap {
+export class CovidMap {
   constructor(buttonsContainer, funcCountryChange, data) {
     this.mapContainer = document.querySelector('#map');
     this.legend = document.querySelector('#legend');
