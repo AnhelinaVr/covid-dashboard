@@ -7,16 +7,16 @@
     flex-shrink: 0;
   
     & a {        
-        color: #23CB91;
+        color: $color_green--ligth;
         text-decoration: none;
     }
 
     &__github {        
-        color: #23CB91;
+        color: $color_green--ligth;
         font-size: 16px;
         &-name {
             margin-left: 10px;            
-            color: #23CB91;
+            color: $color_green--ligth;
 
             &:first-child {
                 margin-left: 0;

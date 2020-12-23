@@ -7,10 +7,11 @@ $color_primary_opacity:#74747474;
 $color_orange:#FF652F;
 $color_yellow:#FFE400;
 $color_green:#14A76C;
+$color_green--ligth:#23CB91;
 $color_ligth:#FFFFFF;
 body,
 html {
-    // font-size: 10px;
+    @media (max-width: 1500px) {font-size: 10px;}
 }
 
 @mixin p {
@@ -68,4 +69,27 @@ html {
     width: 20px;
     height: 20px;
     page-break-after: 5px;
+}
+
+
+.button, .graphButton {
+    font-size: 14px;
+    background-color: $color_primary;
+    color: $color_green--ligth;
+    border: solid 1px $color_green--ligth;
+    cursor: pointer;
+    outline: none;
+    padding: 5px;
+    margin: 5px;
+
+    &:hover {
+        background-color: #363636;
+    }
+    &:active {
+        background-color: #202020;
+    }
+
+    &--active {        
+        background-color: #363636;
+    }
 }

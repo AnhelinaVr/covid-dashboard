@@ -8,6 +8,7 @@ export default class App {
   constructor() {
     this.data = null;
     this.country = { Country: 'Brazil', TotalConfirmed: 7110434 };
+    this.main = document.querySelector('.main');
   }
 
   async getDatas() {
@@ -46,7 +47,7 @@ export default class App {
       this.moduleChart.init();
     });
 
-    // this.addEventListenerForButtonFullscreenClick();
+    // this.buttonsListner();
   }
 
   /* в свою таблицу передаю функцию которая вызывается когда страна меняется */
@@ -81,4 +82,16 @@ export default class App {
   //   });
   //   console.log(this.country);
   // }
+
+  buttonsListner() {
+    this.main.addEventListener('click', (event) => {
+      const buttons = document.querySelectorAll('button');
+      if (event.target.classList.contains('button')) {
+        buttons.forEach((element) => {
+          element.classList.remove('button--active');
+        });
+        event.target.classList.toggle('button--active');
+      }
+    });
+  }
 }
