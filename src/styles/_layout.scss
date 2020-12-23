@@ -11,10 +11,6 @@ body {
     // max-width: 1500px;
     margin: 0 auto;
     width: 100%;
-    // display: flex;
-    // flex-wrap: wrap;
-    // justify-content: center;
-    // align-items: center;
 }
 
 .fullScreen-btn {
@@ -27,11 +23,13 @@ body {
     display: block;
     top: 10px;
     right: 10px;
+
     &:hover {
         transform: scale(1.1);
         transition: 0.1s cubic-bezier(0.8, 0.5, 0.2, 0.4);
         transition-duration: 500ms;
     }
+
     &__img {
         height: 100%;
         width: 100%;
@@ -39,27 +37,12 @@ body {
     }
 }
 
-// .fullscreen__button {
-//     margin: 3px;
-//     background-color: $color_ligth;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     width: 30px;
-//     height: 30px;
-//     border: none;
-//     outline: none;
-//     cursor: pointer;
-//     &__img {
-//         width: 20px;
-//         height: 20px;
-//     }
-// }
 
 .fullscreen__button:hover {
     transition: 0.3s;
     border-radius: 10px;
     transform: scale(1.1);
+
     &__img {
         width: 20px;
         height: 20px;
@@ -81,39 +64,48 @@ body {
 .module-table {
     height: 300px;
     background-color: $color_primary;
+
     &__table {
-        margin: 0 auto ;
+        margin: 0 auto;
         width: 94%;
         height: 100%;
-        max-height: 500px;
-        // border: solid 1px $color_green--ligth;
+        display: flex;
+        flex-direction: column;
+
         &-thead {
             background-color: $color_secondary;
+
             &__figure {
                 margin: 5px auto;
+
                 &__icon {
                     max-width: 40px;
                 }
             }
+
             &__search {
                 max-width: 140px;
             }
+
             &__search-tabs-container {
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 flex-wrap: wrap;
+
                 &__tab {
                     display: flex;
                     justify-content: center;
                     align-items: center;
                 }
             }
+
             &__names-columns,
             &__target-info {
                 display: flex;
                 text-align: center;
                 font-weight: bold;
+
                 &__td-location,
                 &__td-infected,
                 &__td-recovered,
@@ -126,6 +118,7 @@ body {
                     width: 25%;
                     font-weight: bold;
                 }
+
                 img {
                     width: 30px;
                     height: 30px;
@@ -134,9 +127,11 @@ body {
                     background-color: $color_primary;
                 }
             }
+
             &__names-columns {
                 color: $color_ligth;
             }
+
             &__target-info {
                 color: $color_primary;
                 font-style: italic;
@@ -144,22 +139,25 @@ body {
                 background-color: $color_primary;
                 color: #fff;
                 border-bottom: solid 1px $color_green--ligth;
+
                 @media (max-width: 1500px) {
                     font-size: 14px;
                 }
             }
         }
+
         &-tbody {
             background-color: $color_primary;
             display: block;
             height: 100%;
-            max-height: 160px;
             overflow: auto;
+
             &__tr {
                 display: flex;
                 text-align: right;
                 border: 1px solid $color_primary;
                 cursor: pointer;
+
                 &__td-location,
                 &__td-infected,
                 &__td-recovered,
@@ -171,41 +169,52 @@ body {
                     width: 25%;
                     padding: 2px;
                 }
+
                 &__td-location {
                     color: $color_ligth;
                 }
+
                 &__td-infected {
                     color: $color_yellow;
                 }
+
                 &__td-recovered {
                     color: $color_green;
                 }
+
                 &__td-deaths {
                     color: $color_orange;
                 }
             }
+
             &__tr:hover {
                 border: solid 1px $color_green--ligth;
             }
         }
     }
+
     &__text-categories {
         width: 100px;
         text-align: center;
     }
+
     &__button {
         @include button;
+
         &__reset__img {
             @include button__img__reset;
         }
+
         &__arrow__img {
             @include button__img__arrow;
         }
     }
+
     &__button__reset:hover {
         transition: all 0.5s ease;
         animation: rotate 1s linear infinite;
     }
+
     &__button:active {
         @include button-active;
     }
@@ -235,6 +244,7 @@ body {
     height: 100%;
     margin: 0 auto;
     color: $color_primary;
+
     img {
         width: 20px;
         height: 20px;

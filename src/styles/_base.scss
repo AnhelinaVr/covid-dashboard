@@ -9,9 +9,12 @@ $color_yellow:#FFE400;
 $color_green:#14A76C;
 $color_green--ligth:#23CB91;
 $color_ligth:#FFFFFF;
+
 body,
 html {
-    @media (max-width: 1500px) {font-size: 10px;}
+    @media (max-width: 1500px) {
+        font-size: 10px;
+    }
 }
 
 @mixin p {
@@ -21,6 +24,7 @@ html {
         style: normal;
         weight: normal;
     }
+
     line-height: 130%;
 }
 
@@ -29,7 +33,6 @@ html {
     cursor: pointer;
     transition: 0.3s;
     border: 0px;
-    // background-color: transparent;
     outline: none;
 }
 
@@ -85,11 +88,12 @@ html {
     &:hover {
         background-color: #363636;
     }
+
     &:active {
         background-color: #202020;
     }
 
-    &--active {        
+    &--active {
         background-color: #363636;
     }
 }
