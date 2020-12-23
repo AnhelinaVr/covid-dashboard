@@ -47,7 +47,7 @@ export default class App {
       this.moduleChart.init();
     });
 
-    // this.buttonsListner();
+    this.buttonsListner();
   }
 
   /* в свою таблицу передаю функцию которая вызывается когда страна меняется */
@@ -85,12 +85,17 @@ export default class App {
 
   buttonsListner() {
     this.main.addEventListener('click', (event) => {
-      const buttons = document.querySelectorAll('button');
-      if (event.target.classList.contains('button')) {
-        buttons.forEach((element) => {
+      if (event.target.classList.contains('button') && !event.target.classList.contains('resetToGlobalButton')) {
+        Array.from(event.target.parentElement.children).forEach((element) => {
           element.classList.remove('button--active');
         });
         event.target.classList.toggle('button--active');
+      } else if (event.target.classList.contains('resetToGlobalButton')) {
+        const graphButtons = document.querySelector('.graphButtons');
+        Array.from(graphButtons.children).forEach((element) => {
+          element.classList.remove('button--active');
+        });
+        graphButtons.firstElementChild.classList.add('button--active');
       }
     });
   }

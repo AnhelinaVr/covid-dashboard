@@ -22,7 +22,7 @@
                     </div>
                     
                     <div class="map-tabs">
-                        <button class="button button-map--tab" data-tab-name="cases">Total cases</button>
+                        <button class="button button-map--tab  button--active " data-tab-name="cases">Total cases</button>
                         <button class="button button-map--tab" data-tab-name="recovered">Total recovered</button>
                         <button class="button button-map--tab" data-tab-name="deaths">Total deaths</button>
                         <button class="button button-map--tab" data-tab-name="deathsToCases">Deaths to cases</button>
@@ -54,7 +54,7 @@
                     <div id="results"></div>
                     
                     <div class="buttonsTotal">
-                      <button class="button" id="cases">Total Confirmed</button>
+                      <button class="button button--active " id="cases">Total Confirmed</button>
                       <button class="button"  id="deaths">Total Deaths</button>
                       <button class="button"  id="recovered">Total Recovered</button>
                       <!-- <button class="button"  id="todayCases">New Confirmed</button> -->
@@ -79,11 +79,11 @@
                         </button> -->
                         <div id="chartdiv"></div>
                         <div class="graphButtons">
-                            <button class="graphButton" data-name='cases'>Cases</button>
-                            <button class="graphButton" data-name='deaths'>Deaths</button>
-                            <button class="graphButton" data-name='recovered'>Recovered</button>
+                            <button class="button button--active graphButton" data-name='cases'>Cases</button>
+                            <button class="button graphButton" data-name='deaths'>Deaths</button>
+                            <button class="button graphButton" data-name='recovered'>Recovered</button>
                         </div>
-                        <button class="resetToGlobalButton" data-name='resetToGlobalButton'>Reset to global</button>
+                        <button class="button resetToGlobalButton" data-name='resetToGlobalButton'>Reset to global</button>
                 </div>
             </div>
             <footer class="footer">
