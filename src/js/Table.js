@@ -19,7 +19,7 @@ export default class Table {
                            </button>
                            <div class="search-container">
                               <input type="text" class="module-table__table-thead__search" id="module-table__table-search" placeholder="Search for a Country" placeholder="Search for a Country" />
-                              <input class="button__kb__view" type="button" value="Show">
+                              <input class="button__kb__view" type="button">
                             </div>
                            <div class = "module-table__table-thead__search-tabs-container__tab">
                              <button class="module-table__button" id="module-table__button__prev">

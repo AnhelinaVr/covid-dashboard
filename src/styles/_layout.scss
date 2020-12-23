@@ -13,6 +13,11 @@ body {
     width: 100%;
 }
 
+// section {
+//     min-width: 460px;
+//     background-color: $color_primary;
+// }
+
 .fullScreen-btn {
     z-index: 5;
     background-color: $color_primary;
@@ -53,18 +58,24 @@ body {
     transform: scale(0.9);
 }
 
-.fullscreenActive {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    min-height: 100%;
+.module-list {
+    width: 50%;
+    height: 400px;
+}
+
+.module-map {
+    width: 50%;
+    height: 400px;
+}
+
+.module-graph {
+    width: 50%;
+    height: 400px;
 }
 
 .module-table {
     height: 300px;
     background-color: $color_primary;
-
     &__table {
         margin: 0 auto;
         width: 94%;
@@ -259,7 +270,10 @@ body {
     border: 3px solid #000;
 }
 
-body {
-    background-color: #cccccc;
-    color: $color_ligth;
+#chardiv {
+    width: 94%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px auto;
 }

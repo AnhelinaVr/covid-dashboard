@@ -1,4 +1,4 @@
-/* Base: contained within this file are all 
+/* Base: contained within this file are all
 your resets, variables, mixins, and any utility classes. */
 
 $color_primary:#272727;
@@ -84,15 +84,12 @@ html {
     outline: none;
     padding: 5px;
     margin: 5px;
-
     &:hover {
         background-color: #363636;
     }
-
     &:active {
         background-color: #202020;
     }
-
     &--active {
         background-color: #363636;
     }
