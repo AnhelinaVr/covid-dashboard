@@ -106,7 +106,8 @@ export default class List {
           console.log(1);
         }
         event.preventDefault();
-        event.target.closest('#section').classList.toggle('module--full-screen');
+        event.target.closest('.section').classList.toggle('module--full-screen');
+        document.body.classList.toggle('fullScreen-body');
       });
     });
   }
@@ -134,7 +135,7 @@ export default class List {
         if (casesOnPopalaton) {
           return (
             ((a[`${paramToFilter}`] / a.population) * this.on100KCases).toFixed()
-            - ((b[`${paramToFilter}`] / b.population) * this.on100KCases).toFixed()
+                        - ((b[`${paramToFilter}`] / b.population) * this.on100KCases).toFixed()
           );
         }
         return a[`${paramToFilter}`] - b[`${paramToFilter}`];

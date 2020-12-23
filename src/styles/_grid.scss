@@ -2,17 +2,26 @@
     display: grid;
     height: 100vh;
     width: 100vw;
+    @media (max-width: 1024px) {
+        height: 100%;
+    }
     grid-template-columns: 20% 50% 30%;
-
     @media (max-width: 1500px) {
         grid-template-columns: 25% 45% 30%;
     }
-
+    @media (max-width: 1024px) {
+        grid-template-columns: 100%;
+    }
     grid-template-rows: 60px 1fr 1fr 1fr 1fr 60px;
+    @media (max-width: 1024px) {
+        grid-template-rows: 60px 50vh 50vh 50vh 50vh 20vh 60px;
+    }
     gap: 6px 6px;
     overflow: hidden;
     min-width: 1020px;
-
+    @media (max-width: 1024px) {
+        min-width: 480px;
+    }
     & .module--full-screen {
         height: 100vh;
         width: 100vw;
@@ -27,34 +36,48 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
     &__title {
         margin: 0;
         padding: 0;
         font-size: 40px;
         font-weight: normal;
         color: $color_green--ligth;
+    }
+}
 
+.modal-info {
+    @media (max-width: 1024px) {
+        grid-row-start: 6;
     }
 }
 
 .map-module {
     grid-row-start: span 4;
-
-
+    @media (max-width: 1024px) {
+        grid-row-start: 3;
+    }
 }
 
 .table-module {
     grid-row-start: span 2;
     overflow: hidden;
+    @media (max-width: 1024px) {
+        grid-row-start: 4;
+    }
 }
 
 .list-module {
     grid-row-start: span 3;
+    @media (max-width: 1024px) {
+        grid-row-start: 2;
+    }
 }
 
 .graph-module {
     grid-row-start: span 2;
+    @media (max-width: 1024px) {
+        grid-row-start: 5;
+    }
 }
 
 .footer {

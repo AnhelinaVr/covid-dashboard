@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import Table from '../Table';
 
 const datas = {
@@ -107,30 +108,8 @@ const dataSort = [{
 },
 ];
 
-/* const table = require('../Table'); */
-
-it(('check function'), () => {
+it(('check equal arrays after sorting'), () => {
   const newTable = new Table('table', () => {}, datas);
-  /* newTable.finalCountries = [{ country: 'Poland', population: 447 }, { country: 'Belarus', population: 223 }]; */
   newTable.sortDataCountries();
-  expect(newTable.sortDataCountries()).toBe(3);
-  /* console.log(newTable.sortDataCountries()); */
+  expect(newTable.sortDataCountries()).toEqual(dataSort);
 });
-
-/* import table from '../Table';
-
-jest.mock('../Table', () => (
-  return class{
-    finalCountries = [{ country: 'Belarus', population: 223 },
-  { country: 'Poland', population: 447 }]
-  }
-);
-
-describe('Mock test', () => {
-  test('Table.sort', () => {
-    const newTable = new Table('div', 'new-div', (() => {}));
-    newTable.finalCountries = [{ country: 'Belarus', population: 223 },
-      { country: 'Poland', population: 447 }];
-    console.log(newTable.sortDataCountries());
-  });
-}); */

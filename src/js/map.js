@@ -54,17 +54,17 @@ export class CovidMap {
     this.legend.innerHTML = '<h3>Legend</h3>';
     const div = document.createElement('div');
     if (tabName === 'recovered') {
-      div.innerHTML = `<img src="/src/assets/circleGreen.png"> - > 5% 
-        <br>       <img src="/src/assets/circleYellow.png"> - > 1% <br>   
-        <img src="/src/assets/circleOrange.png"> - < 1%`;
+      div.innerHTML = `<img src="../assets/circleGreen.png"> - > 5% 
+        <br>       <img src="../assets/circleYellow.png"> - > 1% <br>   
+        <img src="../assets/circleOrange.png"> - < 1%`;
     } else if (tabName === 'recoveredToCases') {
-      div.innerHTML = `<img src="/src/assets/circleGreen.png"> - > 50% 
-        <br>       <img src="/src/assets/circleYellow.png"> - > 20% <br>   
-        <img src="/src/assets/circleOrange.png"> - < 20%`;
+      div.innerHTML = `<img src="../assets/circleGreen.png"> - > 50% 
+        <br>       <img src="../assets/circleYellow.png"> - > 20% <br>   
+        <img src="../assets/circleOrange.png"> - < 20%`;
     } else {
-      div.innerHTML = `<img src="/src/assets/circleRed.png"> - > 10% 
-        <br>       <img src="/src/assets/circleOrange.png"> - > 1% <br>   
-        <img src="/src/assets/circleYellow.png"> - < 1%`;
+      div.innerHTML = `<img src="../assets/circleRed.png"> - > 10% 
+        <br>       <img src="../assets/circleOrange.png"> - > 1% <br>   
+        <img src="../assets/circleYellow.png"> - < 1%`;
     }
     this.legend.appendChild(div);
   }
@@ -78,7 +78,7 @@ export class CovidMap {
 
     countries.forEach((country) => {
       const icon = {
-        url: '/src/assets/circleYellow.png', // url
+        url: '../assets/circleYellow.png', // url
         scaledSize: new window.google.maps.Size(20, 20), // scaled size
       };
       let percent;
@@ -88,34 +88,34 @@ export class CovidMap {
         case 'cases':
           percent = getPercentage(country.cases, general.cases);
           tabInfo = country.cases;
-          if (percent >= 1 && percent < 10) icon.url = '/src/assets/circleOrange.png';
-          else if (percent >= 10) icon.url = '/src/assets/circleRed.png';
+          if (percent >= 1 && percent < 10) icon.url = '../assets/circleOrange.png';
+          else if (percent >= 10) icon.url = '../assets/circleRed.png';
           break;
         case 'recovered':
           percent = getPercentage(country.recovered, general.recovered);
           tabInfo = country.recovered;
-          if (percent < 0.5) icon.url = '/src/assets/circleOrange.png';
-          if (percent >= 0.5 && percent < 3) icon.url = '/src/assets/circleYellow.png';
-          else if (percent >= 3) icon.url = '/src/assets/circleGreen.png';
+          if (percent < 0.5) icon.url = '../assets/circleOrange.png';
+          if (percent >= 0.5 && percent < 3) icon.url = '../assets/circleYellow.png';
+          else if (percent >= 3) icon.url = '../assets/circleGreen.png';
           break;
         case 'deaths':
           percent = getPercentage(country.deaths, general.deaths);
           tabInfo = country.deaths;
-          if (percent >= 1 && percent < 10) icon.url = '/src/assets/circleOrange.png';
-          else if (percent >= 10) icon.url = '/src/assets/circleRed.png';
+          if (percent >= 1 && percent < 10) icon.url = '../assets/circleOrange.png';
+          else if (percent >= 10) icon.url = '../assets/circleRed.png';
           break;
         case 'deathsToCases':
           percent = getPercentage(country.deaths, country.cases);
           tabInfo = `${percent.toFixed(3)} %`;
-          if (percent >= 1 && percent < 10) icon.url = '/src/assets/circleOrange.png';
-          else if (percent >= 10) icon.url = '/src/assets/circleRed.png';
+          if (percent >= 1 && percent < 10) icon.url = '../assets/circleOrange.png';
+          else if (percent >= 10) icon.url = '../assets/circleRed.png';
           break;
         case 'recoveredToCases':
           percent = getPercentage(country.recovered, country.cases);
           tabInfo = `${percent.toFixed(3)} %`;
-          if (percent < 20) icon.url = '/src/assets/circleOrange.png';
-          if (percent >= 20 && percent < 50) icon.url = '/src/assets/circleYellow.png';
-          else if (percent >= 50) icon.url = '/src/assets/circleGreen.png';
+          if (percent < 20) icon.url = '../assets/circleOrange.png';
+          if (percent >= 20 && percent < 50) icon.url = '../assets/circleYellow.png';
+          else if (percent >= 50) icon.url = '../assets/circleGreen.png';
           break;
         default:
           break;

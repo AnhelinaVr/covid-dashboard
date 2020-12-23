@@ -243,9 +243,14 @@ body {
     color: $color_ligth;
 }
 
+.fullScreen-body {
+    position: fixed;
+    overflow: hidden;
+}
+
 .modal-container {
     color: $color_primary;
-    z-index: 1000;
+    z-index: 10;
     position: relative;
 }
 

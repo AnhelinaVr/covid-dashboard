@@ -15,7 +15,7 @@ export default class Table {
     ROW_INPUT.classList.add('module-table__table-thead__search-tabs-container');
     THEAD.appendChild(ROW_INPUT);
     ROW_INPUT.innerHTML = `<button class="module-table__button module-table__button__reset" id="module-table__button__reset">
-                             <img class="module-table__button__reset__img" src="/src/assets/icons/refresh.png" alt="Reset">
+                             <img class="module-table__button__reset__img" src="../assets/icons/refresh.png" alt="Reset">
                            </button>
                            <div class="search-container">
                               <input type="text" class="module-table__table-thead__search" id="module-table__table-search" placeholder="Search for a Country" placeholder="Search for a Country" />
@@ -23,11 +23,11 @@ export default class Table {
                             </div>
                            <div class = "module-table__table-thead__search-tabs-container__tab">
                              <button class="module-table__button" id="module-table__button__prev">
-                               <img class="module-table__button__arrow__img" src="/src/assets/icons/left-arrow.png" alt="Prev">
+                               <img class="module-table__button__arrow__img" src="../assets/icons/left-arrow.png" alt="Prev">
                              </button>
                              <div class="module-table__text-categories">Total</div>
                              <button class="module-table__button" id="module-table__button__next">
-                               <img class="module-table__button__arrow__img" src="/src/assets/icons/right-arrow.png" alt="Next">
+                               <img class="module-table__button__arrow__img" src="../assets/icons/right-arrow.png" alt="Next">
                              </button>
                            </div>`;
     const INPUT = document.getElementById('module-table__table-search');
@@ -83,16 +83,16 @@ export default class Table {
     const ROW = document.createElement('tr');
     ROW.classList.add('module-table__table-thead__names-columns');
     ROW.innerHTML = `<td class="module-table__table-thead__names-columns__td-location">
-                       Locaction<img src="/src/assets/icons/placeholder.png" alt="Location">
+                       Locaction<img src="../assets/icons/placeholder.png" alt="Location">
                      </td>
                      <td class="module-table__table-thead__names-columns__td-infected">
-                       Infected<img src="/src/assets/icons/coronavirus.png" alt="Infected">
+                       Infected<img src="../assets/icons/coronavirus.png" alt="Infected">
                      </td>
                      <td class="module-table__table-thead__names-columns__td-recovered">
-                       Recovered<img src="/src/assets/icons/heartbeat.png" alt="Recovered">
+                       Recovered<img src="../assets/icons/heartbeat.png" alt="Recovered">
                      </td>
                      <td class="module-table__table-thead__names-columns__td-deaths">
-                       Deaths<img src="/src/assets/icons/skull.png" alt="Deaths">
+                       Deaths<img src="../assets/icons/skull.png" alt="Deaths">
                      </td>`;
     THEAD.appendChild(ROW);
   }
@@ -163,7 +163,7 @@ export default class Table {
 
   sortDataCountries() {
     this.finalCountries = this.finalCountries.sort((a, b) => b.cases - a.cases);
-    return this.finalCountries.length;
+    return this.finalCountries;
   }
 
   async showCountries(param) {
