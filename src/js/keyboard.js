@@ -8,7 +8,7 @@ const cssClasses = {
   key: 'key',
   info: 'info',
   buttonConatiner: 'buttons__container',
-  buttonSound: 'button__sound',
+  // buttonSound: 'button__sound',
   keySpecial: 'key-special',
   commonKey: 'common_key',
   keyPressed: 'key_pressed',
@@ -80,10 +80,10 @@ const createPageElements = (lang) => {
   const buttonOpen = document.createElement('button');
   buttonOpen.classList.add(cssClasses.buttonOpen);
   buttonOpen.append(document.createTextNode('Show KB'));
-  const buttonSound = document.createElement('button');
-  buttonSound.classList.add(cssClasses.buttonSound);
-  buttonSound.append(document.createTextNode('Sound off'));
-  buttonsContainer.append(buttonOpen, buttonSound);
+  // const buttonSound = document.createElement('button');
+  // buttonSound.classList.add(cssClasses.buttonSound);
+  // buttonSound.append(document.createTextNode('Sound off'));
+  // buttonsContainer.append(buttonOpen, buttonSound);
 
   const wrapperContainer = document.createElement('div');
   wrapperContainer.classList.add(cssClasses.wrapper);
@@ -119,17 +119,18 @@ function showKeyboard() {
     keyboardWindow.style.bottom = '0';
   }
 }
+let currentInput = '';
 
 function getInput() {
   const inputs = document.querySelectorAll('input[type="text"]');
-  let currentInput = inputs[0];
   inputs.forEach((input) => {
     input.addEventListener('focus', () => {
       // console.log(input);
       currentInput = input;
-      return input;
+      return currentInput;
     });
   });
+
   const buttons = document.querySelectorAll('input[type="button"]');
   buttons.forEach((button) => {
     button.addEventListener('click', showKeyboard);
@@ -394,19 +395,19 @@ const onMouseUp = (event) => {
     addKeyUp(event, event.currentTarget.id);
   }
 };
-let isSoundOn = 'true';
+// let isSoundOn = 'true';
 // AUDIO____________________________
-const playSound = () => {
-  if (isSoundOn) {
-    const langAudio = getLang();
-    const audio = langAudio === 'en'
-      ? document.querySelector('#audio_en')
-      : document.querySelector('#audio');
-    if (!audio) return;
-    audio.currentTime = 0;
-    audio.play();
-  }
-};
+// const playSound = () => {
+//     if (isSoundOn) {
+//         const langAudio = getLang();
+//         const audio = langAudio === 'en' ?
+//             document.querySelector('#audio_en') :
+//             document.querySelector('#audio');
+//         if (!audio) return;
+//         audio.currentTime = 0;
+//         audio.play();
+//     }
+// };
 
 window.addEventListener('load', () => {
   const lang = getLang();
@@ -414,30 +415,30 @@ window.addEventListener('load', () => {
   document.querySelector('body').appendChild(pageElements);
   document.querySelectorAll(`.${cssClasses.key}`).forEach((keyElement) => {
     keyElement.addEventListener('mousedown', onMouseDown);
-    keyElement.addEventListener('mousedown', playSound);
+    // keyElement.addEventListener('mousedown', playSound);
     keyElement.addEventListener('mouseup', onMouseUp);
     keyElement.addEventListener('mouseout', onMouseUp);
   });
-  document.addEventListener('keydown', onKeyDown, playSound);
+  document.addEventListener('keydown', onKeyDown);
   document.addEventListener('keyup', onKeyUp);
-  document.addEventListener('keydown', playSound);
+  // document.addEventListener('keydown', playSound);
 });
 
 window.addEventListener('load', () => {
   const openBut = document.querySelector('.button__kb__view');
-  const sound = document.querySelector('.button__sound');
+  // const sound = document.querySelector('.button__sound');
 
   // When the user clicks on button, close the modal
   openBut.addEventListener('click', showKeyboard);
-  sound.addEventListener('click', () => {
-    if (isSoundOn) {
-      isSoundOn = false;
-      sound.textContent = 'Sound on';
-    } else {
-      isSoundOn = true;
-      sound.textContent = 'Sound off';
-    }
-  });
+  // sound.addEventListener('click', () => {
+  //     if (isSoundOn) {
+  //         isSoundOn = false;
+  //         sound.textContent = 'Sound on';
+  //     } else {
+  //         isSoundOn = true;
+  //         sound.textContent = 'Sound off';
+  //     }
+  // });
 
   window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   let rec = new window.SpeechRecognition();

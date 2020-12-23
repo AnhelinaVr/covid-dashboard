@@ -1,4 +1,4 @@
-/* Base: contained within this file are all 
+/* Base: contained within this file are all
 your resets, variables, mixins, and any utility classes. */
 
 $color_primary:#272727;
@@ -10,7 +10,7 @@ $color_green:#14A76C;
 $color_ligth:#FFFFFF;
 body,
 html {
-    font-size: 10px;
+    font-size: 14px;
 }
 
 @mixin p {

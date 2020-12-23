@@ -3,20 +3,64 @@
     box-sizing: border-box;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5.h6 {
+    margin: 5px;
+}
+
 #results {
     overflow: hidden;
 }
 
+.search-container input {
+    margin: 0 5px;
+    padding: 5px;
+    max-width: 140px;
+}
+
+.button__kb__view {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.button__kb__view:hover {
+    text-decoration: underline;
+    transition: 0.3s;
+}
+
 .list-module {
-    background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    background-color: $color_secondary;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
-    height: 100%;
+    height: 300px;
     font-family: "Roboto", sans-serif;
-    margin: 0 0 50px;
-    // padding-top: 50px;
+    width: 94%;
+    margin: 10px auto;
+}
+
+.buttonsTotal {
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 90%;
+    button {
+        background-color: $color_primary;
+        color: $color_ligth;
+        outline: none;
+        margin: 3px;
+        cursor: pointer;
+    }
+    button:hover {
+        -webkit-box-shadow: 0px 0px 18px -1px rgba(255, 255, 255, 1);
+        -moz-box-shadow: 0px 0px 18px -1px rgba(255, 255, 255, 1);
+        box-shadow: 0px 0px 18px -1px rgba(255, 255, 255, 1);
+    }
 }
 
 input {
@@ -44,9 +88,10 @@ input {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 10px;
-    margin: 10px 0;
+    padding: 5px 10px;
+    margin: 5px 0;
     transition: 0.5s;
+    cursor: pointer;
     &:hover {
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
         transition: 0.5s;
@@ -59,25 +104,30 @@ input {
         flex: 2;
         font-weight: normal;
         letter-spacing: 0.5px;
-        margin: 0 5px;
+        margin: 0 10px;
         text-align: center;
+        max-width: 120px;
+        display: flex;
     }
     &__info {
         border-left: 1px solid #aaa;
         color: #777;
         padding: 0 15px;
         flex: 1;
-    }
-    &__population {
-        font-weight: 300;
-        letter-spacing: 1px;
-        margin: 0;
-        margin-bottom: 12px;
-    }
-    &--text {
-        font-weight: 300;
-        letter-spacing: 1px;
-        margin: 0;
-        text-transform: uppercase;
+        display: flex;
+        align-items: center
+        /* &__population {
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin: 0;
+            margin-bottom: 12px;
+        }
+
+        &--text {
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin: 0;
+            text-transform: uppercase;
+        } */
     }
 }
