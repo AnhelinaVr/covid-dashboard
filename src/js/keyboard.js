@@ -119,15 +119,24 @@ function showKeyboard() {
     keyboardWindow.style.bottom = '0';
   }
 }
+
 let currentInput = '';
+
+function setEventInput(input) {
+  const event = new Event('input');
+  console.log(event);
+  input.dispatchEvent(event);
+  input.addEventListener('input', () => {
+    console.log('HELLo');
+  });
+}
 
 function getInput() {
   const inputs = document.querySelectorAll('input[type="text"]');
   inputs.forEach((input) => {
     input.addEventListener('focus', () => {
-      // console.log(input);
+      console.log(input);
       currentInput = input;
-      return currentInput;
     });
   });
 
@@ -135,8 +144,6 @@ function getInput() {
   buttons.forEach((button) => {
     button.addEventListener('click', showKeyboard);
   });
-  // console.log(inputs);
-  // console.log(buttons);
   return currentInput;
 }
 
@@ -260,7 +267,7 @@ const isCapsDown = () => keyDownSet.has('CapsLock');
 
 const processKeyPressed = (code) => {
   const input = getInput();
-  // console.log(input);
+  setEventInput(input);
   const currentLayout = getCurrentLayout();
   switch (code) {
     case 'Backspace':
@@ -360,7 +367,6 @@ const addKeyDown = (event, code) => {
         switchLayoutUpperCase();
       }
     }
-
     if (isShiftActive && isCapsActive) {
       switchLayoutLowerCase();
     }

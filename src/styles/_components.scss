@@ -130,7 +130,7 @@
     }
     .key {
         padding: 0 2px;
-        min-width: 3.5rem;
+        min-width: 2.2rem;
         min-height: 3rem;
         font-size: 16px;
         display: flex;
@@ -168,49 +168,49 @@
         transform: translateY(2px);
     }
     #Backspace {
-        width: 10rem;
+        width: 5rem;
         font-weight: bold;
         font-size: 2.4rem;
     }
     #Delete {
-        width: 11.5rem;
+        width: 5rem;
         font-weight: bold;
         font-size: 2.4rem;
     }
     #Tab {
-        width: 5rem;
+        width: 4rem;
         font-weight: bold;
     }
     #CapsLock {
-        width: 6rem;
+        width: 4rem;
         font-weight: bold;
         font-size: 2.4rem;
     }
     #Enter {
-        width: 9rem;
+        width: 4rem;
         font-weight: bold;
         font-size: 2.4rem;
     }
     #ShiftLeft {
-        width: 10rem;
+        width: 5rem;
         font-weight: bold;
     }
     #ShiftRight {
-        width: 9.5rem;
+        width: 5rem;
         font-weight: bold;
     }
     #ControlLeft,
     #ControlRight {
-        width: 6rem;
+        width: 3.5rem;
         font-weight: bold;
     }
     #AltLeft,
     #AltRight {
-        width: 4rem;
+        width: 3rem;
         font-weight: bold;
     }
     #MetaLeft {
-        width: 5rem;
+        width: 3rem;
         font-weight: bold;
     }
     #Lang {
@@ -222,7 +222,7 @@
         font-size: 2.4rem;
     }
     #Space {
-        width: 14.5rem;
+        width: 6rem;
         font-weight: bold;
     }
     #Space,
@@ -267,7 +267,7 @@
     }
     .key {
         padding: 0 2px;
-        min-width: 2.8rem;
+        min-width: 2.2rem;
         min-height: 2rem;
         font-size: 1.4rem;
         display: flex;
@@ -296,22 +296,22 @@
         background-color: #dbd8d8;
     }
     #Backspace {
-        width: 3.4rem;
+        width: 2rem;
         font-weight: bold;
         font-size: 1.4rem;
     }
     #Delete {
-        width: 4.1rem;
+        width: 2.1rem;
         font-weight: bold;
         font-size: 1.4rem;
     }
     #Tab {
-        width: 3.5rem;
+        width: 3rem;
         font-weight: normal;
         font-size: 1.4rem;
     }
     #CapsLock {
-        width: 4rem;
+        width: 3rem;
         font-weight: bold;
         font-size: 1.4rem;
     }
@@ -320,19 +320,15 @@
         font-weight: bold;
         font-size: 1.4rem;
     }
+    #ShiftRight,
     #ShiftLeft {
-        width: 5.1rem;
-        font-weight: normal;
-        font-size: 1.4rem;
-    }
-    #ShiftRight {
-        width: 5.1rem;
+        width: 3rem;
         font-weight: normal;
         font-size: 1.4rem;
     }
     #ControlLeft,
     #ControlRight {
-        width: 5rem;
+        width: 3rem;
         font-weight: normal;
     }
     #AltLeft,
@@ -341,7 +337,7 @@
         font-weight: normal;
     }
     #MetaLeft {
-        width: 4rem;
+        width: 3rem;
         font-weight: normal;
     }
     #Lang {
@@ -354,7 +350,7 @@
         font-size: 1.4rem;
     }
     #Space {
-        width: 7.8rem;
+        width: 4rem;
         font-weight: bold;
     }
     #Space,
