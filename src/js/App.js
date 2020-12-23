@@ -8,6 +8,7 @@ export default class App {
   constructor() {
     this.data = null;
     this.country = { Country: 'Brazil', TotalConfirmed: 7110434 };
+    this.main = document.querySelector('.main');
   }
 
   async getDatas() {
@@ -36,9 +37,6 @@ export default class App {
       this.moduleChart = new Chart(`${target.textContent.toLowerCase()}`);
       this.moduleChart.init();
     });
-    this.moduleList = new List(this.data, this.setCountry.bind(this));
-    this.moduleList.showCountries();
-    this.moduleList.events();
 
     this.resetToGlobalButton = document.querySelector('.resetToGlobalButton');
     this.resetToGlobalButton.addEventListener('click', () => {
@@ -46,7 +44,7 @@ export default class App {
       this.moduleChart.init();
     });
 
-    this.addEventListenerForButtonFullscreenClick();
+    this.buttonsListner();
   }
 
   /* в свою таблицу передаю функцию которая вызывается когда страна меняется */
@@ -60,25 +58,20 @@ export default class App {
     this.moduleChart.init();
   }
 
-  addEventListenerForButtonFullscreenClick() {
-    const SECTIONS = document.querySelectorAll('section');
-
-    SECTIONS.forEach((section) => {
-      const FULL_SCREEN_BUTTON = section.querySelector('.fullscreen__button');
-      let isButtonFullscreenClick = false;
-      FULL_SCREEN_BUTTON.addEventListener('click', () => {
-        const buttonImg = FULL_SCREEN_BUTTON.querySelector('img');
-        if (!isButtonFullscreenClick) {
-          section.classList.add('fullscreenActive');
-          isButtonFullscreenClick = true;
-          buttonImg.src = '/src/assets/icons/minimize.png';
-        } else {
-          section.classList.remove('fullscreenActive');
-          isButtonFullscreenClick = false;
-          buttonImg.src = '/src/assets/icons/fullscreen.png';
-        }
-      });
+  buttonsListner() {
+    this.main.addEventListener('click', (event) => {
+      if (event.target.classList.contains('button') && !event.target.classList.contains('resetToGlobalButton')) {
+        Array.from(event.target.parentElement.children).forEach((element) => {
+          element.classList.remove('button--active');
+        });
+        event.target.classList.toggle('button--active');
+      } else if (event.target.classList.contains('resetToGlobalButton')) {
+        const graphButtons = document.querySelector('.graphButtons');
+        Array.from(graphButtons.children).forEach((element) => {
+          element.classList.remove('button--active');
+        });
+        graphButtons.firstElementChild.classList.add('button--active');
+      }
     });
-    console.log(this.country);
   }
 }

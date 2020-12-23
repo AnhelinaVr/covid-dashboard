@@ -8,40 +8,46 @@ body {
 
 .main {
     background-color: $color_primary_opacity;
-    max-width: 1200px;
+    // max-width: 1500px;
     margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
 }
 
-section {
-    min-width: 460px;
+// section {
+//     min-width: 460px;
+//     background-color: $color_primary;
+// }
+
+.fullScreen-btn {
+    z-index: 5;
     background-color: $color_primary;
-}
-
-.fullscreen__button {
-    margin: 3px;
-    background-color: $color_ligth;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 5px;
+    position: absolute;
     width: 30px;
     height: 30px;
-    border: none;
-    outline: none;
-    cursor: pointer;
+    display: block;
+    top: 10px;
+    right: 10px;
+
+    &:hover {
+        transform: scale(1.1);
+        transition: 0.1s cubic-bezier(0.8, 0.5, 0.2, 0.4);
+        transition-duration: 500ms;
+    }
+
     &__img {
-        width: 20px;
-        height: 20px;
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
     }
 }
+
 
 .fullscreen__button:hover {
     transition: 0.3s;
     border-radius: 10px;
     transform: scale(1.1);
+
     &__img {
         width: 20px;
         height: 20px;
@@ -68,38 +74,49 @@ section {
 }
 
 .module-table {
-    width: 50%;
-    height: 400px;
+    height: 300px;
+    background-color: $color_primary;
     &__table {
-        margin: 10px auto;
+        margin: 0 auto;
         width: 94%;
-        border: 1px solid $color_ligth;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+
         &-thead {
             background-color: $color_secondary;
+
             &__figure {
                 margin: 5px auto;
+
                 &__icon {
                     max-width: 40px;
                 }
             }
+
             &__search {
                 max-width: 140px;
             }
+
             &__search-tabs-container {
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                flex-wrap: wrap;
+
                 &__tab {
                     display: flex;
                     justify-content: center;
                     align-items: center;
                 }
             }
+
             &__names-columns,
             &__target-info {
                 display: flex;
                 text-align: center;
                 font-weight: bold;
+
                 &__td-location,
                 &__td-infected,
                 &__td-recovered,
@@ -112,6 +129,7 @@ section {
                     width: 25%;
                     font-weight: bold;
                 }
+
                 img {
                     width: 30px;
                     height: 30px;
@@ -120,25 +138,37 @@ section {
                     background-color: $color_primary;
                 }
             }
+
             &__names-columns {
                 color: $color_ligth;
             }
+
             &__target-info {
                 color: $color_primary;
                 font-style: italic;
                 font-size: 18px;
+                background-color: $color_primary;
+                color: #fff;
+                border-bottom: solid 1px $color_green--ligth;
+
+                @media (max-width: 1500px) {
+                    font-size: 14px;
+                }
             }
         }
+
         &-tbody {
             background-color: $color_primary;
             display: block;
-            height: 100px;
+            height: 100%;
             overflow: auto;
+
             &__tr {
                 display: flex;
                 text-align: right;
                 border: 1px solid $color_primary;
                 cursor: pointer;
+
                 &__td-location,
                 &__td-infected,
                 &__td-recovered,
@@ -150,60 +180,82 @@ section {
                     width: 25%;
                     padding: 2px;
                 }
+
                 &__td-location {
                     color: $color_ligth;
                 }
+
                 &__td-infected {
                     color: $color_yellow;
                 }
+
                 &__td-recovered {
                     color: $color_green;
                 }
+
                 &__td-deaths {
                     color: $color_orange;
                 }
             }
+
             &__tr:hover {
-                border: 1px solid $color_ligth;
+                border: solid 1px $color_green--ligth;
             }
         }
     }
+
     &__text-categories {
         width: 100px;
         text-align: center;
     }
+
     &__button {
         @include button;
+
         &__reset__img {
             @include button__img__reset;
         }
+
         &__arrow__img {
             @include button__img__arrow;
         }
     }
+
     &__button__reset:hover {
         transition: all 0.5s ease;
         animation: rotate 1s linear infinite;
     }
+
     &__button:active {
         @include button-active;
     }
 }
 
-.fullscreenActive {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    min-height: 100%;
-    z-index: 100;
+.module-list {
+    height: 400px;
+    background-color: $color_secondary;
+}
+
+.module-map {
+    height: 300px;
+    background-color: $color_primary;
+
+    & .map-tabs {
+        padding: 5px;
+    }
+}
+
+.module-graph {
+    height: 300px;
+    background-color: $color_ligth;
 }
 
 .map {
-    width: 90%;
-    height: 90%;
+    width: 100%;
+    height: 100%;
     margin: 0 auto;
     color: $color_primary;
+
     img {
         width: 20px;
         height: 20px;

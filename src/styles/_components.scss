@@ -50,10 +50,11 @@
 
 .search-container {
     display: flex;
-    width: 150px;
+
     #search {
         flex-basis: 90%;
     }
+
     .button__kb__view {
         flex-basis: 10%;
         @include button;
@@ -70,6 +71,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+
     .textarea {
         font-size: 16px;
         display: block;
@@ -81,6 +83,7 @@
         border: solid 1px black;
         background-color: #efefef;
     }
+
     .buttons__container button {
         margin: 5px;
         padding: 5px;
@@ -91,22 +94,27 @@
         border-radius: 5px;
         color: #ffffff;
     }
+
     .buttons__container button:hover {
         transition: 0.5s;
         -webkit-box-shadow: 0px 0px 5px 1px #FFFFFF;
         box-shadow: 0px 0px 5px 1px #FFFFFF;
     }
+
     .buttons__container button:active {
         transform: scale(0.9);
         transition: 0.1s;
     }
+
     .info {
         color: #ffffff;
         font-size: 1.6rem;
     }
+
     .on {
         background-color: orange !important;
     }
+
     .caps_indicator {
         float: right;
         margin: 0 40px 10px 0;
@@ -116,6 +124,7 @@
         border: 1px solid #000000;
         border-radius: 50%;
     }
+
     .keyboard_container {
         display: flex;
         flex-direction: column;
@@ -126,6 +135,7 @@
         background-color: $color_primary;
         transition: 1s;
     }
+
     .keyboard_keys {
         display: flex;
         flex-wrap: wrap;
@@ -133,6 +143,7 @@
         max-width: 700px;
         margin: 0 auto;
     }
+
     .key {
         padding: 0 2px;
         min-width: 2.2rem;
@@ -146,6 +157,7 @@
         border-radius: 5px;
         color: #ffffff;
     }
+
     .key span {
         display: flex;
         width: 100%;
@@ -153,6 +165,7 @@
         justify-content: center;
         align-items: center;
     }
+
     .key span div {
         color: orange;
         font-size: 12px;
@@ -160,76 +173,92 @@
         padding-left: 5px;
         padding-top: 3px;
     }
+
     .key_active {
         background-color: #4889B2;
         box-shadow: 0 1px black;
         transition: 0.1s ease-in-out;
         transform: translateY(2px);
     }
+
     .key_pressed {
         background-color: #4889B2;
         box-shadow: 0 1px black;
         transition: 0.1s ease-in-out;
         transform: translateY(2px);
     }
+
     #Backspace {
         width: 5rem;
         font-weight: bold;
         font-size: 2.4rem;
     }
+
     #Delete {
         width: 5rem;
         font-weight: bold;
         font-size: 2.4rem;
     }
+
     #Tab {
         width: 4rem;
         font-weight: bold;
     }
+
     #CapsLock {
         width: 4rem;
         font-weight: bold;
         font-size: 2.4rem;
     }
+
     #Enter {
         width: 4rem;
         font-weight: bold;
         font-size: 2.4rem;
     }
+
     #ShiftLeft {
         width: 5rem;
         font-weight: bold;
     }
+
     #ShiftRight {
         width: 5rem;
         font-weight: bold;
     }
+
     #ControlLeft,
     #ControlRight {
         width: 3.5rem;
         font-weight: bold;
     }
+
     #AltLeft,
     #AltRight {
         width: 3rem;
         font-weight: bold;
     }
+
     #MetaLeft {
         width: 3rem;
         font-weight: bold;
     }
+
     #Lang {
         width: 5rem;
         font-weight: bold;
     }
+
     #Microphone {
         width: 5rem;
         font-size: 2.4rem;
     }
+
     #Space {
         width: 6rem;
         font-weight: bold;
     }
+
     #Space,
     #ShiftLeft,
     #ControlLeft,
@@ -237,24 +266,28 @@
     #Tab {
         justify-self: stretch;
     }
+
     #ArrowLeft,
     #Backquote {
         justify-self: end;
     }
+
     #ArrowRight {
         justify-self: start;
     }
 }
 
 @media (max-width: 767px) {
-    .main {
-        max-width: 500px;
-        margin: 0 auto;
-        height: 100vh;
-    }
+
+    // .main {
+    //     max-width: 500px;
+    //     margin: 0 auto;
+    //     height: 100vh;
+    // }
     .textarea {
         font-size: 14px;
     }
+
     .keyboard_container {
         display: flex;
         flex-direction: column;
@@ -263,6 +296,7 @@
         width: 500px;
         background-color: #184668;
     }
+
     .keyboard_keys {
         display: flex;
         flex-wrap: wrap;
@@ -270,6 +304,7 @@
         max-width: 500px;
         margin: 0 auto;
     }
+
     .key {
         padding: 0 2px;
         min-width: 2.2rem;
@@ -283,6 +318,7 @@
         border-radius: 5px;
         color: #ffffff;
     }
+
     .key span {
         display: flex;
         width: 100%;
@@ -290,6 +326,7 @@
         justify-content: space-around;
         align-items: center;
     }
+
     .key span div {
         color: orange;
         font-size: 10px;
@@ -297,67 +334,81 @@
         padding-left: 3px;
         padding-top: 3px;
     }
+
     .key-special {
         background-color: #dbd8d8;
     }
+
     #Backspace {
         width: 2rem;
         font-weight: bold;
         font-size: 1.4rem;
     }
+
     #Delete {
         width: 2.1rem;
         font-weight: bold;
         font-size: 1.4rem;
     }
+
     #Tab {
         width: 3rem;
         font-weight: normal;
         font-size: 1.4rem;
     }
+
     #CapsLock {
         width: 3rem;
         font-weight: bold;
         font-size: 1.4rem;
     }
+
     #Enter {
         width: 2.9rem;
         font-weight: bold;
         font-size: 1.4rem;
     }
+
     #ShiftRight,
     #ShiftLeft {
         width: 3rem;
         font-weight: normal;
         font-size: 1.4rem;
     }
+
     #ControlLeft,
     #ControlRight {
         width: 3rem;
         font-weight: normal;
     }
+
     #AltLeft,
     #AltRight {
         width: 3rem;
         font-weight: normal;
     }
+
     #MetaLeft {
         width: 3rem;
         font-weight: normal;
     }
+
     #Lang {
         width: 3rem;
         font-weight: bold;
         font-size: 1.4rem;
     }
+
     #Microphone {
         width: 1.5rem;
         font-size: 1.4rem;
     }
+
     #Space {
         width: 4rem;
         font-weight: bold;
     }
+
     #Space,
     #ShiftLeft,
     #ControlLeft,
@@ -365,10 +416,12 @@
     #Tab {
         justify-self: stretch;
     }
+
     #ArrowLeft,
     #Backquote {
         justify-self: end;
     }
+
     #ArrowRight {
         justify-self: start;
     }
