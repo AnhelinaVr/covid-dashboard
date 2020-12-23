@@ -45,6 +45,7 @@ export default class CovidMap {
       zoom: 2,
       streetViewControl: false,
       mapTypeControl: false,
+      fullscreenControl: false,
       styles: mapStyle,
     });
   }

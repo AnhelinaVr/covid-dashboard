@@ -57,6 +57,12 @@
     .button__kb__view {
         flex-basis: 10%;
         @include button;
+        margin: 0;
+        padding: 0 13px;
+        background-image: url('../assets/icons/keyboard.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
     }
 }
 
